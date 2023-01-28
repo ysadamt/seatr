@@ -6,7 +6,7 @@ import Link from "next/link";
 const Home: NextPage = () => {
   return (
     <>
-    <div id="background-wrap" className="bg-sky-300">
+    <div id="background-wrap" className="bg-gradient-to-b from-sky-300 to-sky-400">
     <div className="x1">
         <div className="cloud"></div>
     </div>
