@@ -10,7 +10,7 @@ export default class Preferences {
 	constructor(seatType, seatClass, neighbors) {
 		// TODO: consider: military, family, elderly, disability, etc.
 		/**
-		 * The type of seat the passenger prefers. Can be: 'window', 'middle', or 'aisle'.
+		 * The type of seat the passenger prefers. Can be: 'window', 'middle', 'aisle', or 'any'.
 		 */
 		this.seatType = seatType;
 
