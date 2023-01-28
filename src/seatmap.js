@@ -34,14 +34,14 @@ export default class SeatMap {
 
 	/**
 	 * Insert the given passenger into the seat map. Returns true if the passenger was successfully inserted, false otherwise (e.g. if the passenger's seat was already taken).
-	 * @param {number} seat The seat number.
+	 * @param {{row: number, column: number}} seat The seat number.
 	 * @param {Passenger} passenger The passenger to insert.
 	 */
 	insert(seat, passenger) {
-		console.assert(seat >= 1 && seat <= 34 && seat !== 5, 'Invalid seat number');
-		const [row] = seat.toString().split('').map(c => parseInt(c));
-		const seatClass = row <= 4 ? 'first'
-			: row <= 9 ? 'business'
+		console.assert(seat.row >= 1 && seat.row <= 34 && seat.row !== 5, 'Invalid row number');
+		console.assert(seat.column >= 1 && seat.column <= 6, 'Invalid column number');
+		const seatClass = seat.row <= 4 ? 'first'
+			: seat.row <= 9 ? 'business'
 			: 'economy';
 
 		const map = this[seatClass];
