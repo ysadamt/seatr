@@ -6,7 +6,7 @@ import Link from "next/link";
 const Home: NextPage = () => {
   return (
     <>
-    <div id="background-wrap">
+    <div id="background-wrap" className="bg-sky-300">
     <div className="x1">
         <div className="cloud"></div>
     </div>
@@ -36,7 +36,7 @@ const Home: NextPage = () => {
       <div className="flex flex-col justify-center items-center h-screen gap-8">
         <h1 className="text-4xl font-semibold">app name</h1>
         <Link href="/ticketInput">
-          <button className="w-32 bg-zinc-200 py-1 px-2 rounded-xl">
+          <button className="w-32 bg-white p-2 rounded-xl shadow-2xl font-semibold">
             <p>Check In</p>
           </button>
         </Link>

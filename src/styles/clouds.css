@@ -1,12 +1,3 @@
-body {
-	background: #00b4ff;
-	color: #333;
-	font: 100% Arial, Sans Serif;
-	height: 100vh;
-	margin: 0;
-	padding: 0;
-	overflow-x: hidden;
-}
 
 #background-wrap {
     bottom: 0;
@@ -108,7 +99,7 @@ body {
 	background: -webkit-linear-gradient(top,  #fff 5%,#f1f1f1 100%);
 	background: -o-linear-gradient(top,  #fff 5%,#f1f1f1 100%);
 	background: -ms-linear-gradient(top,  #fff 5%,#f1f1f1 100%);
-	background: linear-gradient(top,  #fff 5%,#f1f1f1 100%);
+	background: linear-gradient(to bottom, #fff 5%,#f1f1f1 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fff', endColorstr='#f1f1f1',GradientType=0 );
 	
 	-webkit-border-radius: 100px;
