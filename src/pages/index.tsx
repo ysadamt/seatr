@@ -2,9 +2,32 @@ import { type NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
 
+
 const Home: NextPage = () => {
   return (
     <>
+    <div id="background-wrap">
+    <div className="x1">
+        <div className="cloud"></div>
+    </div>
+
+    <div className="x2">
+        <div className="cloud"></div>
+    </div>
+
+    <div className="x3">
+        <div className="cloud"></div>
+    </div>
+
+    <div className="x4">
+        <div className="cloud"></div>
+    </div>
+
+    <div className="x5">
+        <div className="cloud"></div>
+    </div>
+    </div>
+
       <Link href="/"></Link>
       <Link href="/seatSelect"></Link>
       <Link href="/preferences"></Link>

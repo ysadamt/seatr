@@ -31,7 +31,7 @@ const Preferences: NextPage = () => {
         <label> Window</label><br /><br />
       </form>
       </div>
-      <Link href="/ticketInput">
+      <Link href="/result">
           <button className="w-32 bg-zinc-200 py-1 px-2 rounded-xl">
             <p>Confirm Choice</p>
           </button>
