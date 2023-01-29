@@ -6,9 +6,33 @@ import {BsFillArrowDownCircleFill} from 'react-icons/bs'
 const result = () => {
   return (
     <>
-    <div className="bg-gradient-to-b from-sky-300 to-sky-400 md:min-h-screen">
+    <div id="background-wrap" className="bg-gradient-to-b from-sky-300 to-sky-400">
+        <div className="x1">
+          <div className="cloud"></div>
+        </div>
+
+        <div className="x2">
+          <div className="cloud"></div>
+        </div>
+
+        <div className="x3">
+          <div className="cloud"></div>
+        </div>
+
+        <div className="x4">
+          <div className="cloud"></div>
+        </div>
+
+        <div className="x5">
+          <div className="cloud"></div>
+        </div>
+    </div>
+
     <div className="flex flex-col justify-center items-center h-screen">
-    <div className="flex bg-white p-8 rounded-xl my-10">
+      <div className='pt-5 font-bold text-[#195770]'>
+        <p>You're all set!</p>
+      </div>
+    <div className="flex bg-white p-8 rounded-xl my-10 animated animatedFadeInUp fadeInUp shadow-lg">
       <div className='flex flex-col justify-between gap-4'>
         <div>
           <p>Passenger</p>
@@ -87,7 +111,6 @@ const result = () => {
     </div> */}
 
 
-   </div>
    </div>
     </>
   );
