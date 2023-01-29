@@ -75,11 +75,11 @@ export function generateBoardingQueue(seatMap) {
 		const data = queue[i];
 		data.score += i;
 
-		const flagScores = [...data.passenger.flags].reduce((scores, flag) => scores + 2 * (FLAG_WEIGHTS[flag] || 0), 0);
-		data.score -= flagScores * i;
+		const flagScores = [...data.passenger.flags].reduce((scores, flag) => scores + (FLAG_WEIGHTS[flag] || 0), 0);
+		data.score -= flagScores;
 	}
 
-	const mapped = queue.sort((a, b) => b.score - a.score).map(data => data.passenger);
+	const mapped = queue.sort((a, b) => a.score - b.score).map(data => data.passenger);
 
 	// split into boarding groups (51 passengers per group, 204 in total)
 	return [
