@@ -20,6 +20,8 @@ const Preferences: NextPage = () => {
           <label> Disabled</label><br />
           <input type="checkbox" value="Elderly" />
           <label> Elderly</label><br/>
+          <input type="checkbox" value="Elderly" />
+          <label> Family</label><br/>
         </form>
       </div>
       <div className="p-2"></div>
@@ -35,7 +37,7 @@ const Preferences: NextPage = () => {
         </form>
       </div>
       <Link className="pt-6 pb-5" href="/ticketInput">
-        <button className="w-50 bg-white py-1 px-2 rounded-xl">
+        <button className="w-50 bg-white p-2 rounded-xl">
           <p>Confirm Choice</p>
         </button>
       </Link>
