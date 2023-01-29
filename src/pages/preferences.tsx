@@ -33,7 +33,7 @@ const Preferences: NextPage = () => {
           <label> Window</label><br/>
         </form>
       </div>
-      <Link className="pt-6 pb-5" href="/ticketInput">
+      <Link className="pt-6 pb-5" href="/result">
         <button className="w-43 p-3 rounded-xl bg-[#195770] text-white font-semibold hover:bg-[#154153] animated animatedFadeInUp fadeInUp">
           <p>Confirm Choice</p>
         </button>
