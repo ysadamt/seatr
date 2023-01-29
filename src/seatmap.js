@@ -53,7 +53,7 @@ export class SeatMap {
 				const hover = animation ? animation.hover : 0;
 				const seatClass = row < 4 ? 'first' : row < 8 ? 'business' : 'economy';
 				const pos = {
-					x: col * 50 + window.innerWidth - 7 * 50,
+					x: col * 50 + window.innerWidth - 7 * 50 + (col >= 3 ? 30 : 0),
 					y: row * 50 + 50 + (
 						seatClass === 'first' ? 0
 							: seatClass === 'business' ? 30
@@ -100,6 +100,115 @@ export class SeatMap {
 	}
 
 	/**
+	 * Find the passenger with the given ticket number and returns their seat.
+	 * @param {number} ticket The ticket number to search for.
+	 */
+	findSeat(ticket) {
+		for (let row = 0; row < this.seats.length; ++row) {
+			for (let column = 0; column < this.seats[0].length; ++column) {
+				const passenger = this.seats[row][column];
+				if (passenger && passenger.ticket === ticket) {
+					return {row, column};
+				}
+			}
+		}
+
+		return null;
+	}
+
+	/**
+	 * Chooses the best seat for the given passenger.
+	 *
+	 * This algorithm scores each seat based on the passenger's preferences, and then chooses the seat with the highest score.
+	 * @param {Passenger} passenger The passenger to choose a seat for.
+	 */
+	chooseBestSeat(passenger) {
+		const scores = new Array(34).fill(null).map(() => new Array(6).fill(0));
+		let best = {
+			score: -Infinity,
+			row: null,
+			column: null,
+		};
+
+		for (let row = 0; row < 34; ++row) {
+			for (let column = 0; column < 6; ++column) {
+				const pref = passenger.preferences;
+
+				// seat MUST be empty
+				if (this.seats[row][column] !== null) {
+					scores[row][column] = -Infinity;
+					continue;
+				}
+
+				// seat CAN be the exact seat the passenger wants
+				if (row === pref.row && column === pref.column) {
+					return {
+						score: 1000,
+						row,
+						column,
+					};
+				}
+
+				// prefer space next to other passengers
+				if (column <= 2) { // left side
+					if (this.seats[row].slice(0, 3).filter((_, i) => Math.abs(i - column) <= 1).every(seat => seat === null)) {
+						scores[row][column] += 5;
+					}
+				} else { // right side
+					if (this.seats[row].slice(3).filter((_, i) => Math.abs(i + 3 - column) <= 1).every(seat => seat === null)) {
+						scores[row][column] += 5;
+					}
+				}
+
+				// seat MUST match passenger's class
+				if (
+					row < 4 && pref.seatClass === 'first'
+					|| row < 8 && pref.seatClass === 'business'
+					|| row >= 8 && pref.seatClass === 'economy'
+				) {
+					scores[row][column] += 20;
+				} else {
+					scores[row][column] = -Infinity;
+					continue;
+				}
+
+				// seat SHOULD match passenger's window preference
+				if (
+					(column === 0 || column === 5) && pref.seatType === 'window'
+					|| (column === 1 || column === 4) && pref.seatType === 'middle'
+					|| (column === 2 || column === 3) && pref.seatType === 'aisle'
+				) {
+					scores[row][column] += 10;
+				}
+
+				// seat CAN be close to passenger's window preference
+				const normalizedCol = {window: 0, middle: 1, aisle: 2}[pref.seatType];
+				const distFromPref = Math.abs(normalizedCol - (column <= 2 ? column : 5 - column));
+				scores[row][column] += 8 - 3 * distFromPref;
+
+				// seat SHOULD be close to their preferred neighbors
+				for (const neighbor of pref.neighbors) {
+					// find the neighbor's seat, if they have one
+					const neighborSeat = this.findSeat(neighbor);
+					if (neighborSeat) {
+						// find the distance between the two seats
+						const dist = Math.hypot(Math.abs(row - neighborSeat.row), Math.abs(column - neighborSeat.column) / 100);
+						scores[row][column] += 1000 - 500 * dist;
+					}
+				}
+
+				if (scores[row][column] > best.score) {
+					best.score = scores[row][column];
+					best.row = row;
+					best.column = column;
+				}
+			}
+		}
+
+		return best;
+	}
+
+	/**
 	 * Insert the given passenger into the seat map. Returns true if the passenger was successfully inserted, false otherwise (e.g. if the passenger's seat was already taken).
 	 * @param {number} row The row of the target seat.
 	 * @param {number} column The column of the target seat.
@@ -113,73 +222,23 @@ export class SeatMap {
 			return true;
 		}
 	}
-}
 
-/**
- * Returns an iterator over all class seats of the given Passenger. Seats that are already taken are skipped, and seats that meet the Passenger's preferences are returned first.
- *
- * As a result, returned seats will always be in the passenger's class, and will always have seat types that meet the passenger's preferences first.
- * @param {SeatMap} seatMap The seat map to iterate over.
- * @param {Passenger} passenger The passenger whose preferences to satisfy.
- * @returns {{row: number, column: number}}
- */
-function firstValidSeat(seatMap, passenger) {
-	const rowRanges = {
-		first: [0, 4],
-		business: [4, 8],
-		economy: [8, 34],
-	};
-	const cols = {
-		window: [0, 5],
-		middle: [1, 4],
-		aisle: [2, 3],
-	};
+	/**
+	 * Given a list of passengers and their preferences, returns a seating chart that attempts to satisfy the preferences of all passengers. Passengers that come earlier (earlier in the given array) are given higher priority in their preferences.
+	 * @param {Array<Passenger>} passengers The list of passengers and their preferences.
+	 */
+	static seatingChart(passengers) {
+		passengers = passengers.slice();
+		const seatMap = new SeatMap();
 
-	const pref = {
-		range: rowRanges[passenger.preferences.seatClass],
-		cols: cols[passenger.preferences.seatType],
-	};
-
-	for (let row = pref.range[0]; row < pref.range[1]; ++row) {
-		if (seatMap.seats[row][pref.cols[0]] === null) {
-			return {row, column: pref.cols[0]};
+		while (passengers.length > 0) {
+			const passenger = passengers.shift();
+			const seat = seatMap.chooseBestSeat(passenger);
+			seatMap.insert(seat.row, seat.column, passenger);
 		}
 
-		if (seatMap.seats[row][pref.cols[1]] === null) {
-			return {row, column: pref.cols[1]};
-		}
+		return seatMap;
 	}
-
-	// seats that don't meet the passenger's preferences
-	const otherSeatTypes = ['window', 'middle', 'aisle'].filter(col => col !== passenger.preferences.seatType);
-	for (const seatType of otherSeatTypes) {
-		for (let row = pref.range[0]; row < pref.range[1]; ++row) {
-			if (seatMap.seats[row][cols[seatType][0]] === null) {
-				return {row, column: cols[seatType][0]};
-			}
-
-			if (seatMap.seats[row][cols[seatType][1]] === null) {
-				return {row, column: cols[seatType][1]};
-			}
-		}
-	}
-}
-
-/**
- * Given a list of passengers and their preferences, returns a seating chart that attempts to satisfy the preferences of all passengers. Passengers that come earlier (earlier in the given array) are given higher priority in their preferences.
- * @param {Array<Passenger>} passengers The list of passengers and their preferences.
- */
-function seatingChart(passengers) {
-	passengers = passengers.slice();
-	const seatMap = new SeatMap();
-
-	while (passengers.length > 0) {
-		const passenger = passengers.shift();
-		const seat = firstValidSeat(seatMap, passenger);
-		seatMap.insert(seat.row, seat.column, passenger);
-	}
-
-	return seatMap;
 }
 
 /**
@@ -199,7 +258,7 @@ export function testSeatingChart() {
 		passengers.push(new Passenger('John Doe', new Preferences(seatType, seatClass)));
 	}
 
-	const chart = seatingChart(passengers);
+	const chart = SeatMap.seatingChart(passengers);
 
 	let preferencesMet = 0;
 	for (let row = 0; row < 34; ++row) {
