@@ -70,23 +70,31 @@ function rawBoardingQueue(seatMap) {
  * @returns {Array<Array<Passenger>>} The boarding queue, where each boarding group is an array of passengers.
  */
 export function generateBoardingQueue(seatMap) {
-	const queue = rawBoardingQueue(seatMap).map(passenger => ({score: 0, passenger}));
-	for (let i = 0; i < queue.length; ++i) {
-		const data = queue[i];
-		data.score += i;
+	/**
+	 * @param {Array<Passenger>} passengers
+	 * @returns {Array<Passenger>}
+	 */
+	function sort(passengers) {
+		const queue = passengers.map(passenger => ({score: 0, passenger}));
+		for (let i = 0; i < queue.length; ++i) {
+			const data = queue[i];
+			data.score += i;
 
-		const flagScores = [...data.passenger.flags].reduce((scores, flag) => scores + (FLAG_WEIGHTS[flag] || 0), 0);
-		data.score -= flagScores;
+			const flagScores = [...data.passenger.flags].reduce((scores, flag) => scores + (FLAG_WEIGHTS[flag] || 0), 0);
+			data.score -= flagScores ** 3.5;
+		}
+
+		return queue.sort((a, b) => a.score - b.score).map(data => data.passenger);
 	}
 
-	const mapped = queue.sort((a, b) => a.score - b.score).map(data => data.passenger);
+	const queue = sort(rawBoardingQueue(seatMap));
 
 	// split into boarding groups (51 passengers per group, 204 in total)
 	return [
-		mapped.slice(0, 51),
-		mapped.slice(51, 102),
-		mapped.slice(102, 153),
-		mapped.slice(153, 204),
+		sort(queue.slice(0, 51)),
+		sort(queue.slice(51, 102)),
+		sort(queue.slice(102, 153)),
+		sort(queue.slice(153, 204)),
 	];
 }
 

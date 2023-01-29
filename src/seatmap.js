@@ -337,22 +337,26 @@ export function testSeatingChart(deterministicPassenger) {
 		passengers.push(new Passenger('0'.repeat(12), 'John Doe', new Preferences(seatType, seatClass)));
 	}
 	
-	if (deterministicPassenger) {
-		if (deterministicPassenger.preferences.seatClass === 'first') {
-			passengers[0] = deterministicPassenger;
-		} else if (deterministicPassenger.preferences.seatClass === 'business') {
-			passengers[24] = deterministicPassenger;
-		} else {
-			passengers[48] = deterministicPassenger;
-		}
-	}
-
 	// shuffle passengers
 	for (let i = 0; i < passengers.length; ++i) {
 		const j = Math.floor(Math.random() * passengers.length);
 		const temp = passengers[i];
 		passengers[i] = passengers[j];
 		passengers[j] = temp;
+	}
+
+	if (deterministicPassenger) {
+		let rand = Math.floor(Math.random() * 8);
+		for (let i = 0; i < passengers.length; ++i) {
+			if (passengers[i].preferences.seatClass === deterministicPassenger.preferences.seatClass) {
+				--rand;
+			}
+
+			if (rand === 0) {
+				passengers[i] = deterministicPassenger;
+				break;
+			}
+		}
 	}
 
 	const chart = SeatMap.seatingChart(passengers);

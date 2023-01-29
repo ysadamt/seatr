@@ -27,14 +27,14 @@ const result = () => {
       if (flags && seat) {
         const actualFlags = ['veteran', 'disabled', 'elderly'].filter((_, i) => !!flags[i]);
         const actualSeat = ['aisle', 'middle', 'window'].filter((_, i) => !!seat[i])[0];
-        const p = new Passenger('0', 'bruh', new Preferences(actualSeat, 'first'), actualFlags);
+        const p = new Passenger('0', 'bruh', new Preferences(actualSeat, 'economy'), actualFlags);
 
         const map = testSeatingChart(p);
         const queue = generateBoardingQueue(map);
         setGroup(findPassengerInQueue(queue, 'bruh'));
         setSeat(toSeatStr(map.findSeat('bruh')));
       } else {
-        const p = new Passenger('0', 'bruh', new Preferences('', 'first', [], {
+        const p = new Passenger('0', 'bruh', new Preferences('', 'economy', [], {
           row: parseInt(exact[0]) - 1,
           column: exact[1].charCodeAt(0) - 'A'.charCodeAt(0),
         }), []);
@@ -132,13 +132,13 @@ const result = () => {
           </div>
         </div>
         <div className='grid grid-cols-2 border-dashed border-2 border-slate-200 p-4 gap-10 rounded-xl'>
-          <div className="flex flex-col">
-            <p>Arrives</p>
-            <p className='font-bold'>{data.arrivalTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</p>
-          </div>
           <div>
             <p>Departs</p>
             <p className='font-bold'>{data.departureTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</p>
+          </div>
+          <div className="flex flex-col">
+            <p>Arrives</p>
+            <p className='font-bold'>{data.arrivalTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</p>
           </div>
         </div>
 
