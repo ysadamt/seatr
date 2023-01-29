@@ -8,8 +8,8 @@ const seatSelect = () => {
   useEffect(() => {
     (async () => {
       const canvas = document.getElementById("canvas");
-      const mouse = { x: null, y: null };
-      const pointer = { x: null, y: null };
+      const mouse = { x: 0, y: 0 };
+      const pointer = { x: 0, y: 0 };
       canvas.addEventListener("mousemove", e => {
         mouse.x = e.clientX;
         mouse.y = e.clientY - (canvas?.getBoundingClientRect().y || 0);
@@ -61,7 +61,7 @@ const seatSelect = () => {
   const [seat, setSeat] = useState("");
   const pClass = "w-43 p-3 text-[#195770] font-semibold text-xl animated animatedFadeInUp fadeInUp mt-4";
 
-  const handleSubmit = e => {
+  const handleSubmit = (e: any) => {
     e.preventDefault();
     window.location.href = `/result?exact=${seat}`;
   };
