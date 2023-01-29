@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import { IoAirplane } from "react-icons/io5";
-import {SeatMap} from '../seatmap.js';
+import {SeatMap, testSeatingChart} from '../seatmap.js';
 import {Passenger} from '../passenger.js';
 import Preferences from '../preference.js';
 import { toSeatStr } from '../utils.js';
@@ -28,7 +28,8 @@ const result = () => {
         const actualFlags = ['veteran', 'disabled', 'elderly'].filter((_, i) => !!flags[i]);
         const actualSeat = ['aisle', 'middle', 'window'].filter((_, i) => !!seat[i])[0];
         const p = new Passenger('0', 'bruh', new Preferences(actualSeat, 'first'), actualFlags);
-        const map = SeatMap.seatingChart([p]);
+
+        const map = testSeatingChart(p);
         const queue = generateBoardingQueue(map);
         setGroup(findPassengerInQueue(queue, 'bruh'));
         setSeat(toSeatStr(map.findSeat('bruh')));
@@ -37,7 +38,8 @@ const result = () => {
           row: parseInt(exact[0]) - 1,
           column: exact[1].charCodeAt(0) - 'A'.charCodeAt(0),
         }), []);
-        const map = SeatMap.seatingChart([p]);
+
+        const map = testSeatingChart(p);
         const queue = generateBoardingQueue(map);
         setGroup(findPassengerInQueue(queue, 'bruh'));
         setSeat(toSeatStr(map.findSeat('bruh')));

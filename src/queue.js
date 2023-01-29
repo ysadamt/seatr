@@ -1,4 +1,5 @@
 import {SeatMap} from './seatmap.js';
+import { FLAG_WEIGHTS } from './passenger.js';
 
 /**
  * Generate a generic boarding queue for passengers that minimizes the amount of time passengers have to wait. The passenger to board first is the first passenger in the array.
@@ -60,11 +61,7 @@ function rawBoardingQueue(seatMap) {
 
 	return queue
 		.map(({row, column}) => seatMap.seats[row][column])
-		.filter(passenger => passenger !== null)
-		.sort((a, b) => {
-
-			a.flags
-		});
+		.filter(passenger => passenger !== null);
 }
 
 /**
@@ -77,6 +74,9 @@ export function generateBoardingQueue(seatMap) {
 	for (let i = 0; i < queue.length; ++i) {
 		const data = queue[i];
 		data.score += i;
+
+		const flagScores = [...data.passenger.flags].reduce((scores, flag) => scores + 2 * (FLAG_WEIGHTS[flag] || 0), 0);
+		data.score -= flagScores * i;
 	}
 
 	const mapped = queue.sort((a, b) => b.score - a.score).map(data => data.passenger);

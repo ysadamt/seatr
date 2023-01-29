@@ -211,6 +211,20 @@ export class SeatMap {
 				if (this.seats[row][column] !== null) {
 					scores[row][column] = -Infinity;
 					continue;
+				} else {
+					scores[row][column] = 0;
+				}
+
+				// seat MUST match passenger's class
+				if (
+					row >= 8 && pref.seatClass === 'economy'
+					|| row < 4 && pref.seatClass === 'first'
+					|| row >= 4 && row <= 7 && pref.seatClass === 'business'
+				) {
+					scores[row][column] += 20;
+				} else {
+					scores[row][column] = -Infinity;
+					continue;
 				}
 
 				// seat CAN be the exact seat the passenger wants
@@ -231,18 +245,6 @@ export class SeatMap {
 					if (this.seats[row].slice(3).filter((_, i) => Math.abs(i + 3 - column) <= 1).every(seat => seat === null)) {
 						scores[row][column] += 5;
 					}
-				}
-
-				// seat MUST match passenger's class
-				if (
-					row < 4 && pref.seatClass === 'first'
-					|| row < 8 && pref.seatClass === 'business'
-					|| row >= 8 && pref.seatClass === 'economy'
-				) {
-					scores[row][column] += 20;
-				} else {
-					scores[row][column] = -Infinity;
-					continue;
 				}
 
 				// seat SHOULD match passenger's window preference
@@ -319,8 +321,9 @@ export class SeatMap {
 
 /**
  * Generate a random seating chart.
+ * @param {Passenger?} deterministicPassenger If provided, this passenger will be inserted into the seating chart.
  */
-export function testSeatingChart() {
+export function testSeatingChart(deterministicPassenger) {
 	const passengers = [];
 	for (let i = 0; i < 204; ++i) {
 		const seatClass = i < 24 ? 'first':
@@ -331,7 +334,25 @@ export function testSeatingChart() {
 			rand < 0.7 ? 'middle':
 			'aisle';
 
-		passengers.push(new Passenger('John Doe', new Preferences(seatType, seatClass)));
+		passengers.push(new Passenger('0'.repeat(12), 'John Doe', new Preferences(seatType, seatClass)));
+	}
+	
+	if (deterministicPassenger) {
+		if (deterministicPassenger.preferences.seatClass === 'first') {
+			passengers[0] = deterministicPassenger;
+		} else if (deterministicPassenger.preferences.seatClass === 'business') {
+			passengers[24] = deterministicPassenger;
+		} else {
+			passengers[48] = deterministicPassenger;
+		}
+	}
+
+	// shuffle passengers
+	for (let i = 0; i < passengers.length; ++i) {
+		const j = Math.floor(Math.random() * passengers.length);
+		const temp = passengers[i];
+		passengers[i] = passengers[j];
+		passengers[j] = temp;
 	}
 
 	const chart = SeatMap.seatingChart(passengers);
