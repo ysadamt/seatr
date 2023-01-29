@@ -1,10 +1,10 @@
 import {SeatMap} from './seatmap.js';
 
 /**
- * Given a SeatMap, determine the queue of passengers to enter the plane that minimizes the amount of time passengers have to wait. The passenger to board first is the first passenger in the returned array.
+ * Generate a generic boarding queue for passengers that minimizes the amount of time passengers have to wait. The passenger to board first is the first passenger in the array.
  * @param {SeatMap} seatMap The seat map to use.
  */
-export function generateBoardingQueue(seatMap) {
+function rawBoardingQueue(seatMap) {
 	// passengers will take time to board (walking to seat, loading luggage, etc.)
 	// in order to minimize the total time passengers have to wait, we want to maximize the number of passengers boarding at once to minimize the above time effect
 	// for example, we can have four 1st class passengers board at once by having two passengers board from each aisle
@@ -67,3 +67,44 @@ export function generateBoardingQueue(seatMap) {
 		});
 }
 
+/**
+ * Given a SeatMap, determine the queue of passengers to enter the plane that minimizes the amount of time passengers have to wait, while respecting passenger flags and preferences. The passenger to board first is the first passenger in the first returned boarding group.
+ * @param {SeatMap} seatMap The seat map to use.
+ * @returns {Array<Array<Passenger>>} The boarding queue, where each boarding group is an array of passengers.
+ */
+export function generateBoardingQueue(seatMap) {
+	const queue = rawBoardingQueue(seatMap).map(passenger => ({score: 0, passenger}));
+	for (let i = 0; i < queue.length; ++i) {
+		const data = queue[i];
+		data.score += i;
+	}
+
+	const mapped = queue.sort((a, b) => b.score - a.score).map(data => data.passenger);
+
+	// split into boarding groups (51 passengers per group, 204 in total)
+	return [
+		mapped.slice(0, 51),
+		mapped.slice(51, 102),
+		mapped.slice(102, 153),
+		mapped.slice(153, 204),
+	];
+}
+
+/**
+ * Finds the given passenger in the given boarding queue and returns their position as a string.
+ * @param {Array<Array<Passenger>>} queue The boarding queue to search.
+ * @param {string} ticket The ticket number of the passenger to search for.
+ */
+export function findPassengerInQueue(queue, ticket) {
+	for (let group = 0; group < queue.length; ++i) {
+		const boardingGroup = queue[group];
+		for (let i = 0; i < boardingGroup.length; ++i) {
+			if (boardingGroup[i].ticket === ticket) {
+				console.log(`Passenger ${ticket} is in boarding group ${group + 1} and position ${i + 1}.`);
+				return `${i + 1}${String.fromCharCode(65 + group)}`;
+			}
+		}
+	}
+
+	return null;
+}

@@ -41,3 +41,11 @@ export function hexToRGB(hex) {
 		b: hex & 0xff,
 	};
 }
+
+/**
+ * Convert the given object to a seat string.
+ * @param {{row: number, column: number}} seat
+ */
+export function toSeatStr(seat) {
+	return (seat.row + 1) + String.fromCharCode(seat.column + 65);
+}

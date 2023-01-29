@@ -1,9 +1,43 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { IoAirplane } from "react-icons/io5";
-import {BsFillArrowDownCircleFill} from 'react-icons/bs'
-
+import {SeatMap} from '../seatmap.js';
+import {Passenger} from '../passenger.js';
+import Preferences from '../preference.js';
+import { toSeatStr } from '../utils.js';
+import {findPassengerInQueue, generateBoardingQueue} from '../queue.js';
 
 const result = () => {
+  const [data, setData] = React.useState({flight: {}});
+  const [group, setGroup] = React.useState("");
+  const [seat, setSeat] = React.useState("");
+  useEffect(() => {
+    (async () => {
+      const params = new URLSearchParams(document.location.search);
+      const [flags, seat, exact] = [
+        params.get('flags')?.split(',').map(n => parseInt(n)),
+        params.get('seat')?.split(',').map(n => parseInt(n)),
+        params.get('exact')?.split(''),
+      ];
+      if (flags && seat) {
+        const actualFlags = ['veteran', 'disabled', 'elderly'].filter((_, i) => !!flags[i]);
+        const actualSeat = ['aisle', 'middle', 'window'].filter((_, i) => !!seat[i])[0];
+        const p = new Passenger('bruh', new Preferences(actualSeat, 'first'), actualFlags);
+        const map = SeatMap.seatingChart([p]);
+        const queue = generateBoardingQueue(map);
+        setGroup(findPassengerInQueue(queue, 'bruh'));
+        setSeat(toSeatStr(map.findSeat('bruh')));
+      } else {
+        const p = new Passenger('bruh', new Preferences('', 'first', [], {
+          row: parseInt(exact[0]) - 1,
+          column: exact[1].charCodeAt(0) - 'A'.charCodeAt(0),
+        }), []);
+        const map = SeatMap.seatingChart([p]);
+        const queue = generateBoardingQueue(map);
+        setGroup(findPassengerInQueue(queue, 'bruh'));
+        setSeat(toSeatStr(map.findSeat('bruh')));
+      }
+    })();
+  }, []);
   return (
     <>
     <div id="background-wrap" className="bg-gradient-to-b from-sky-300 to-sky-400">
@@ -77,18 +111,7 @@ const result = () => {
             <p className='font-bold'>2E</p>
           </div>
         </div>
-        {/* <div className="grid grid-cols-2 justify-between gap-10 bg-slate-200 p-3 rounded-xl">
-          <div className=''>
-            <p>Zone</p>
-            <p className='font-bold'>A</p>
-          </div>
-          <div className=''>
-            <div>Seat</div>
-            <p className='font-bold'>21E</p>
-          </div>
-          
-        </div> */}
-        <div className='grid grid-cols-2 border-dashed border-2 border-slate-200 p-2 rounded-xl'>
+        <div className='grid grid-cols-2 border-dashed border-2 border-slate-200 p-4 rounded-xl'>
           <div className="flex flex-col">
             <p>Boards</p>
             <p className='font-bold'>08:15</p>
@@ -104,24 +127,15 @@ const result = () => {
         <div className="grid grid-cols-2">
           <div className="p-3">
             <p className="text">GROUP</p>
-            <p className="text-sky-600 font-bold">11B</p>
+            <p className="text-sky-600 font-bold">{group}</p>
           </div>
           <div className="p-3">
             <p className="text">SEAT</p>
-            <p className="text-sky-600 font-bold">21E</p>
+            <p className="text-sky-600 font-bold">{seat}</p>
           </div>
         </div>
-      
       </div>
-
     </div>
-    {/* <div className='flex text-3xl justify-center mt-15 text-sky-600'>
-            <div>
-                <BsFillArrowDownCircleFill className='bottom-0 animate-bounce'/>
-            </div>
-    </div> */}
-
-
    </div>
     </>
   );
