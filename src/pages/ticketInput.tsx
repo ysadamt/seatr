@@ -7,7 +7,7 @@ const ticketInput = () => {
 
   const handleSpecificSubmit = (e: any) => {
     e.preventDefault();
-    if (ticketNum.length === 12) {
+    if (ticketNum.length === 12 && /^\d+$/.test(ticketNum)) {
       window.location.href = "/seatSelect";
     } else {
       setValid(false);
@@ -16,7 +16,7 @@ const ticketInput = () => {
 
   const handlePrefSubmit = (e: any) => {
     e.preventDefault();
-    if (ticketNum.length === 12) {
+    if (ticketNum.length === 12 && /^\d+$/.test(ticketNum)) {
       window.location.href = "/preferences";
     } else {
       setValid(false);
@@ -25,7 +25,7 @@ const ticketInput = () => {
 
   return (
     <div className="flex flex-col justify-center align-center h-screen w-full gap-8 bg-gradient-to-b from-sky-300 to-sky-400">
-      <div className="gap-2">
+      <div className="gap-2 animated animatedFadeInUp fadeInUp">
         <form className="flex flex-col items-center justify-center" >
           <label className="flex flex-col items-center justify-center w-full font-semibold text-xl text-[#195770]">
             Ticket Number:
@@ -33,23 +33,26 @@ const ticketInput = () => {
           </label>
         </form>
       </div>
-      <div className="flex flex-row items-center justify-center w-full gap-8 font-semibold">
-        <form onSubmit={handleSpecificSubmit}>
-          <button className="w-32 p-2 rounded-xl bg-[#195770] shadow-lg" type="submit">
-            <p className="text-white">Specific Seat</p>
-          </button>
-        </form>
-        <form onSubmit={handlePrefSubmit}>
-          <button className="w-32 p-2 rounded-xl bg-[#195770] shadow-lg">
-            <p className="text-white">Preferences</p>
-          </button>
-        </form>
+      <div className="flex flex-col justify-center items-center">
+        <div className="flex flex-row items-center justify-center w-full gap-8 font-semibold animated animatedFadeInUp fadeInUp">
+          <form onSubmit={handleSpecificSubmit}>
+            <button className="w-32 p-2 rounded-xl bg-[#195770] shadow-lg" type="submit">
+              <p className="text-white">Specific Seat</p>
+            </button>
+          </form>
+          <form onSubmit={handlePrefSubmit}>
+            <button className="w-32 p-2 rounded-xl bg-[#195770] shadow-lg">
+              <p className="text-white">Preferences</p>
+            </button>
+          </form>
+        </div>
+        <div className={`flex mt-8 ${valid ? "invisible" : "visible"}`}>
+            <p className="text-red-500 font-semibold italic">Invalid Ticket Number</p>
+          </div>
       </div>
-      <div className="absolute m-auto left-0 right-0 bottom-60 text-center">
-        {!valid && <p className="text-red-500 font-semibold italic">Invalid Ticket Number</p>}
-      </div>
+
     </div>
   )
 }
 
-export default ticketInput
+export default ticketInput;
