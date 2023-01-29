@@ -75,7 +75,7 @@ export class SeatMap {
 			for (let col = 0; col < this.seats[0].length; ++col) {
 				const seatClass = row < 4 ? 'first' : row < 8 ? 'business' : 'economy';
 				const pos = {
-					x: col * 50 + window.innerWidth / 2 - 3.5 * 50 + (col >= 3 ? 30 : 0),
+					x: (col - 3) * 50 + window.innerWidth / 2 + (col >= 3 ? 30 : -30) + 2.5,
 					y: row * 50 + 50 + (
 						seatClass === 'first' ? 0
 							: seatClass === 'business' ? 30
