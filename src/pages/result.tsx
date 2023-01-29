@@ -34,9 +34,15 @@ const result = () => {
       </div>
     <div className="flex bg-white p-8 rounded-xl my-10 animated animatedFadeInUp fadeInUp shadow-lg">
       <div className='flex flex-col justify-between gap-4'>
+        <div className='flex flex-col py-3 gap-4'>
         <div>
           <p>Passenger</p>
           <p className='text-sky-600 font-bold'>Miss Rev</p>
+        </div>
+        <div>
+          <p>Flight Number</p>
+          <p className='text-sky-600 font-bold'>0248</p>
+        </div>
         </div>
         <div className=''>
           <div className="flex justify-between">
