@@ -27,8 +27,8 @@ const ticketInput = () => {
     <div className="flex flex-row justify-center align-center h-screen w-full bg-gradient-to-b from-sky-300 to-sky-400">
       <div className="flex flex-col justify-center align-center max-w-fit gap-8">
         <div className="gap-2 animated animatedFadeInUp fadeInUp">
-          <form className="flex flex-col items-center justify-center" >
-            <label className="flex flex-col items-center justify-center w-full font-bold text-xl text-[#195770] mb-2">
+          <form className="flex flex-col items-center justify-center" autoComplete="off">
+            <label className="flex flex-col items-center justify-center w-full font-bold text-xl text-[#195770]">
               Enter your ticket number.
               <input className="mt-4 bg-white border-2 border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5 shadow-lg w-full" type="text" name="ticketNum" placeholder="ex. 001234567890" onChange={e => setTicketNum(e.target.value)} />
             </label>

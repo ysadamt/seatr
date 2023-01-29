@@ -28,8 +28,8 @@ const result = () => {
         </div>
     </div>
 
-    <div className="flex flex-col justify-center my-5 items-center">
-      <div className='font-bold text-[#195770] pt-3 animated animatedFadeInUp fadeInUp'>
+    <div className="flex flex-col justify-center items-center">
+      <div className='pt-8 font-bold text-[#195770] text-xl animated animatedFadeInUp fadeInUp'>
         <p>You're all set!</p>
       </div>
     <div className="flex bg-white p-6 rounded-xl my-10 animated animatedFadeInUp fadeInUp shadow-lg">

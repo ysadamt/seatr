@@ -6,34 +6,34 @@ const Preferences: NextPage = () => {
 
   return (
     <div className="flex flex-col justify-start items-start p-8 md:justify-center md:items-center bg-gradient-to-b from-sky-300 to-sky-400 md:min-h-screen">
-      <div className="flex text-xl font-semibold text-white animated animatedFadeInUp fadeInUp">
+      <div className="flex text-xl text-white animated animatedFadeInUp fadeInUp">
         <p className="text-[#195770] font-bold">First, we need some information.</p>
       </div>
       <br></br>
-      <form>
+      <form autoComplete="off">
         <div className="bg-white p-6 rounded-lg hover:bg-slate-100 shadow-lg animated animatedFadeInUp fadeInUp">
           <p className="font-semibold mb-4">Please select which of the following apply to you:</p>
-          <input type="checkbox" value="Veteran" />
-          <label> Veteran</label><br />
-          <input type="checkbox" value="Disabled" />
-          <label> Disabled</label><br />
-          <input type="checkbox" value="Elderly" />
-          <label> Elderly</label><br />
+          <input id="veteran" type="checkbox" value="Veteran" />
+          <label htmlFor="veteran"> Veteran</label><br />
+          <input id="disabled" type="checkbox" value="Disabled" />
+          <label htmlFor="disabled"> Disabled</label><br />
+          <input id="elderly" type="checkbox" value="Elderly" />
+          <label htmlFor="elderly"> Elderly</label><br />
         </div>
         <div className="p-2"></div>
         <div className="bg-white p-6 rounded-lg hover:bg-slate-100 shadow-lg animated animatedFadeInUp fadeInUp">
-          <p className="font-semibold">Please select your preferred seat(s):</p>
-          <input type="checkbox" value="Aisle" />
-          <label> Aisle</label><br />
-          <input type="checkbox" value="Middle" />
-          <label> Middle</label><br />
-          <input type="checkbox" value="Window" />
-          <label> Window</label><br />
+          <p className="font-semibold mb-4">Please select your preferred seat(s):</p>
+          <input id="aisle" type="checkbox" value="Aisle" />
+          <label htmlFor="aisle"> Aisle</label><br />
+          <input id="middle" type="checkbox" value="Middle" />
+          <label htmlFor="middle"> Middle</label><br />
+          <input id="window" type="checkbox" value="Window" />
+          <label htmlFor="window"> Window</label><br />
         </div>
       </form>
       <Link className="pt-6 pb-5" href="/result">
         <button className="w-43 p-3 rounded-xl bg-[#195770] text-white font-semibold hover:bg-[#154153] animated animatedFadeInUp fadeInUp">
-          <p>Confirm Choice</p>
+          <p>Confirm</p>
         </button>
       </Link>
       <div className="text-[#195770] animated animatedFadeInUp fadeInUp">
