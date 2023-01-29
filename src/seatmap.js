@@ -173,14 +173,14 @@ export class SeatMap {
 	}
 
 	/**
-	 * Find the passenger with the given ticket number and returns their seat.
-	 * @param {number} ticket The ticket number to search for.
+	 * Find the passenger with the given name and returns their seat.
+	 * @param {string} name The name of the passenger.
 	 */
-	findSeat(ticket) {
+	findSeat(name) {
 		for (let row = 0; row < this.seats.length; ++row) {
 			for (let column = 0; column < this.seats[0].length; ++column) {
 				const passenger = this.seats[row][column];
-				if (passenger && passenger.ticket === ticket) {
+				if (passenger && passenger.name === name) {
 					return {row, column};
 				}
 			}
@@ -214,7 +214,7 @@ export class SeatMap {
 				}
 
 				// seat CAN be the exact seat the passenger wants
-				if (row === pref.exactSeat.row && column === pref.exactSeat.column) {
+				if (row === pref.exactSeat?.row && column === pref.exactSeat?.column) {
 					return {
 						score: 1000,
 						row,
@@ -322,7 +322,7 @@ export class SeatMap {
  */
 export function testSeatingChart() {
 	const passengers = [];
-	for (let i = 0; i < 204 - 150; ++i) {
+	for (let i = 0; i < 204; ++i) {
 		const seatClass = i < 24 ? 'first':
 			i < 48 ? 'business':
 			'economy';

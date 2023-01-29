@@ -93,14 +93,13 @@ export function generateBoardingQueue(seatMap) {
 /**
  * Finds the given passenger in the given boarding queue and returns their position as a string.
  * @param {Array<Array<Passenger>>} queue The boarding queue to search.
- * @param {string} ticket The ticket number of the passenger to search for.
+ * @param {string} name The name of the passenger to search for.
  */
-export function findPassengerInQueue(queue, ticket) {
-	for (let group = 0; group < queue.length; ++i) {
+export function findPassengerInQueue(queue, name) {
+	for (let group = 0; group < queue.length; ++group) {
 		const boardingGroup = queue[group];
 		for (let i = 0; i < boardingGroup.length; ++i) {
-			if (boardingGroup[i].ticket === ticket) {
-				console.log(`Passenger ${ticket} is in boarding group ${group + 1} and position ${i + 1}.`);
+			if (boardingGroup[i].name === name) {
 				return `${i + 1}${String.fromCharCode(65 + group)}`;
 			}
 		}
