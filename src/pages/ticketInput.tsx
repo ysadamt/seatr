@@ -28,9 +28,9 @@ const ticketInput = () => {
       <div className="flex flex-col justify-center align-center max-w-fit gap-8">
         <div className="gap-2 animated animatedFadeInUp fadeInUp">
           <form className="flex flex-col items-center justify-center" >
-            <label className="flex flex-col items-center justify-center w-full font-semibold text-xl text-[#195770]">
-              Ticket Number:
-              <input className="mt-2 bg-white border-2 border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5 shadow-lg w-full" type="text" name="ticketNum" placeholder="ex. 001234567890" onChange={e => setTicketNum(e.target.value)} />
+            <label className="flex flex-col items-center justify-center w-full font-bold text-xl text-[#195770] mb-2">
+              Enter your ticket number.
+              <input className="mt-4 bg-white border-2 border-gray-300 text-gray-900 text-sm rounded-lg block p-2.5 shadow-lg w-full" type="text" name="ticketNum" placeholder="ex. 001234567890" onChange={e => setTicketNum(e.target.value)} />
             </label>
           </form>
         </div>
@@ -47,8 +47,8 @@ const ticketInput = () => {
               </button>
             </form>
           </div>
-          <div className={`flex mt-8 ${valid ? "invisible" : "visible"}`}>
-            <p className="text-red-500 font-semibold italic">Invalid Ticket Number</p>
+          <div className={`flex mt-8 transition-opacity duration-500 ${valid ? "opacity-0" : "opacity-100"}`}>
+            <p className="text-red-900 font-semibold italic">Invalid Ticket Number</p>
           </div>
         </div>
       </div>

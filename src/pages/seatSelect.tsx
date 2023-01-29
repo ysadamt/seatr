@@ -43,11 +43,11 @@ const seatSelect = () => {
   }, []);
 
   const [seat, setSeat] = useState('');
-  const pClass = 'w-43 p-3 text-white font-semibold text-xl';
+  const pClass = 'w-43 p-3 text-[#195770] font-semibold text-xl';
 
   return (
     <div className="flex flex-col justify-start items-center p-8 md:justify-center md:items-center bg-gradient-to-b from-sky-300 to-sky-400 min-h-screen">
-      <h1 className="font-semibold text-xl text-white my-4">Please Choose your Seat</h1>
+      <h1 className="font-bold text-xl text-[#195770] my-4">Please select a seat.</h1>
       <canvas id="canvas">
         {/* seat map */}
       </canvas>
