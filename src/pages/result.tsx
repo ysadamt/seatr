@@ -102,7 +102,7 @@ const result = () => {
         </div>
         </div>
         <div className=''>
-          <div className="flex justify-between">
+          <div className="flex justify-between gap-3">
             <div>
               <p className="text-xs">{data.origin.city.toUpperCase()}</p>
               <p>{data.origin.code}</p>
@@ -129,7 +129,7 @@ const result = () => {
             <p className='font-bold'>2E</p>
           </div>
         </div>
-        <div className='grid grid-cols-2 border-dashed border-2 border-slate-200 p-4 rounded-xl'>
+        <div className='grid grid-cols-2 border-dashed border-2 border-slate-200 p-4 gap-10 rounded-xl'>
           <div className="flex flex-col">
             <p>Arrives</p>
             <p className='font-bold'>{data.arrivalTime.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</p>
@@ -142,7 +142,7 @@ const result = () => {
 
         </div>
 
-        <div className="grid grid-cols-2">
+        <div className="grid grid-cols-2 gap-10">
           <div className="p-3">
             <p className="text">GROUP</p>
             <p className="text-sky-600 font-bold">{group}</p>
