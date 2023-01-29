@@ -1,28 +1,28 @@
-# Create T3 App
+## Inspiration
+We love traveling - but we hate boarding time. We decided to create Seatr to improve queue times during boarding and allow those who are veterans, elderly, or disabled to board first.
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+## What it does
+Seatr reduces boarding time exponentially. Through our algo to sort user seat preference and create a queue for boarding, passengers wait a lot less in line!
 
-## What's next? How do I make an app with this?
+## How we built it
+We bootstrapped Seatr with T3, a bootstrapping agent that delivers TypeScript, Tailwind CSS, Next, and React all together. From there, we implemented an algorithm to sort user seat preferences and assign seating, and an algorithm that develops a queue based on passenger traits and passenger seat location for most efficiency.
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+## Challenges we ran into
+We all had to learn TypeScript, Next, and React to develop the UI of our site. While many of us had exposure to HTML & CSS prior to this hack, we had little exposure to React. During this project, we had to do a LOT of Googling, and we mean A LOT to fully understand React and Next.js. We also implemented page routing, which was new to us to do in Next.
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+Some of us also did not have a lot of prior experience with Git and version control, so the initial stages of Googling and asking each other questions to be sure of the correct way to push our changes.
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+## Accomplishments that we're proud of
+We're especially proud of our UI - we spent quite a large amount of time refining and perfecting our UI. Our DevPost project image is actually Seatr's landing page. :)
 
-## Learn More
+The seating algorithm that we developed was especially complicated, and had to account for a number of factors: seating preferences and random passengers who did not select a preferred seat. Our boarding algorithm that developed a queue on passenger traits was also complex to think up, but we're ultimately very proud of it in the end.
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+## What we learned
+We learned most how to work as a team - during this project, we were all working on different files of the projects at different times, and constantly updating each other on impending pushes.
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+We learned how to use React, Next.js, and TypeScript.
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+In our hunt to deliver the perfect UI, we also learned quite a bit about design!
 
-## How do I deploy this?
-
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+## What's next for Seatr: Solution to Air Boarding
+Implementing a backend to get other passenger data, adding a check-in timer and boarding timer (for now, our algorithm works, but we had some difficulties establishing our backend). We're proud of Seatr, and there's so much more we could do with it!
