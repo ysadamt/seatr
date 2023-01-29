@@ -1,3 +1,6 @@
+# Seatr: Solution to Air Boarding
+Tired of waiting in line for a seat you don't even like? (hello, middle seat!) Seatr is the solution to inefficient and messy boarding queues and allows passengers to pick the seats they want.
+
 ## Inspiration
 We love traveling - but we hate boarding time. We decided to create Seatr to improve queue times during boarding and allow those who are veterans, elderly, or disabled to board first.
 
