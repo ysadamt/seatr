@@ -75,7 +75,7 @@ export class SeatMap {
 			for (let col = 0; col < this.seats[0].length; ++col) {
 				const seatClass = row < 4 ? 'first' : row < 8 ? 'business' : 'economy';
 				const pos = {
-					x: col * 50 + window.innerWidth / 2 - 3.5 * 50 + (col >= 3 ? 30 : 0),
+					x: (col - 3) * 50 + window.innerWidth / 2 + (col >= 3 ? 30 : -30) + 2.5,
 					y: row * 50 + 50 + (
 						seatClass === 'first' ? 0
 							: seatClass === 'business' ? 30
@@ -214,7 +214,7 @@ export class SeatMap {
 				}
 
 				// seat CAN be the exact seat the passenger wants
-				if (row === pref.row && column === pref.column) {
+				if (row === pref.exactSeat.row && column === pref.exactSeat.column) {
 					return {
 						score: 1000,
 						row,
@@ -255,9 +255,12 @@ export class SeatMap {
 				}
 
 				// seat CAN be close to passenger's window preference
-				const normalizedCol = {window: 0, middle: 1, aisle: 2}[pref.seatType];
-				const distFromPref = Math.abs(normalizedCol - (column <= 2 ? column : 5 - column));
-				scores[row][column] += 8 - 3 * distFromPref;
+				// ignore if passenger has an exact seat preference
+				if (!pref.exactSeat) {
+					const normalizedCol = {window: 0, middle: 1, aisle: 2}[pref.seatType];
+					const distFromPref = Math.abs(normalizedCol - (column <= 2 ? column : 5 - column));
+					scores[row][column] += 8 - 3 * distFromPref;
+				}
 
 				// seat SHOULD be close to their preferred neighbors
 				for (const neighbor of pref.neighbors) {

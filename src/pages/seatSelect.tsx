@@ -2,6 +2,7 @@ import { Application, Graphics } from "pixi.js";
 import React, { useEffect, useState } from "react";
 import { FaArrowDown } from "react-icons/fa";
 import { SeatMap } from "../seatmap.js";
+import { toSeatStr } from '../utils.js';
 
 const seatSelect = () => {
   useEffect(() => {
@@ -36,13 +37,13 @@ const seatSelect = () => {
       app.stage.addEventListener("click", () => {
         const seat = seatMap.handleClick(mouse.x, mouse.y);
         if (seat) {
-          setSeat(String.fromCharCode(seat.column + 65) + (seat.row + 1));
+          setSeat(toSeatStr(seat));
         }
       });
       app.stage.addEventListener("touchend", () => {
         const seat = seatMap.handleClick(pointer.x, pointer.y);
         if (seat) {
-          setSeat(String.fromCharCode(seat.column + 65) + (seat.row + 1));
+          setSeat(toSeatStr(seat));
         }
       });
 
@@ -59,6 +60,11 @@ const seatSelect = () => {
 
   const [seat, setSeat] = useState("");
   const pClass = "w-43 p-3 text-[#195770] font-semibold text-xl animated animatedFadeInUp fadeInUp mt-4";
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    window.location.href = `/result?exact=${seat}`;
+  };
 
   return (
     <div className="flex flex-col justify-start items-center md:justify-center md:items-center bg-gradient-to-b from-sky-300 to-sky-400 min-h-screen w-full">
@@ -77,7 +83,7 @@ const seatSelect = () => {
           ? <p className={pClass}>Selected seat: {seat}</p>
           : <p className={pClass}>Selected seat: <span style={{ fontStyle: "italic" }}>none</span></p>
       }
-      <button className="w-43 p-3 rounded-xl bg-[#195770] text-white font-semibold hover:bg-[#154153] my-4 animated animatedFadeInUp fadeInUp">
+      <button className="w-43 p-3 rounded-xl bg-[#195770] text-white font-semibold hover:bg-[#154153] my-4 animated animatedFadeInUp fadeInUp" onClick={handleSubmit}>
         <p>Confirm</p>
       </button>
     </div>

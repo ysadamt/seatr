@@ -1,8 +1,13 @@
 import { type NextPage } from "next";
-import { useEffect, useState } from "react";
-import Link from "next/link";
 
 const Preferences: NextPage = () => {
+
+  const confirmChoice = e => {
+    e.preventDefault();
+    const form = document.getElementById("form-pref");
+    const [veteran, disabled, elderly, aisle, middle, window2] = form.elements;
+    window.location.href = `/result?flags=${+veteran.checked},${+disabled.checked},${+elderly.checked}&seat=${+aisle.checked},${+middle.checked},${+window2.checked}`;
+  };
 
   return (
     <div className="flex flex-col justify-start items-start p-8 pt-20 md:justify-center md:items-center bg-gradient-to-b from-sky-300 to-sky-400 min-h-screen">
@@ -10,8 +15,7 @@ const Preferences: NextPage = () => {
         <p className="text-[#195770] font-bold">First, we need some information.</p>
       </div>
       <br></br>
-      
-      <form autoComplete="off">
+      <form autoComplete="off" id="form-pref" style={{display: 'flex', flexDirection: 'column', height: '500px', justifyContent: 'space-evenly'}} onSubmit={confirmChoice}>
       <div className="p-2">
         <div className="bg-white p-6 rounded-lg hover:bg-slate-100 shadow-lg animated animatedFadeInUp fadeInUp">
           <p className="font-semibold mb-4">Please select which of the following apply to you:</p>
@@ -38,7 +42,7 @@ const Preferences: NextPage = () => {
         <button className="w-43 p-3 rounded-xl bg-[#195770] text-white font-semibold hover:bg-[#154153] animated animatedFadeInUp fadeInUp">
           <p>Confirm</p>
         </button>
-      </Link>
+      </form>
       <div className="text-[#195770] animated animatedFadeInUp fadeInUp">
         <p className="pb-5 font-semibold">Note: You are not guaranteed your choice of seating, but we will do our best to match you. </p>
       </div>

@@ -16,14 +16,20 @@ export const FLAG_WEIGHTS = {
 export class Passenger {
 	/**
 	 * @param {string} ticket The passenger's ticket number.
+	 * @param {string} name The passenger's name.
 	 * @param {Preferences} preferences The passenger's preferences.
 	 * @param {Array<string>} flags The flags that the passenger has.
 	 */
-	constructor(ticket, preferences, flags = []) {
+	constructor(ticket, name, preferences, flags = []) {
 		/**
 		 * The passenger's ticket number.
 		 */
 		this.ticket = ticket;
+
+		/**
+		 * The passenger's name.
+		 */
+		this.name = name;
 
 		/**
 		 * The passenger's preferences.
@@ -31,7 +37,7 @@ export class Passenger {
 		this.preferences = preferences;
 
 		/**
-		 * The flags that the passenger has. Flags can include: 'military', 'family', 'elderly', 'disability', etc. Flags can affect the passenger's seat score or their queue position.
+		 * The flags that the passenger has. Flags can include: 'military', 'elderly', 'disability', etc. Flags can affect the passenger's seat score or their queue position.
 		 */
 		this.flags = new Set(flags);
 	}
