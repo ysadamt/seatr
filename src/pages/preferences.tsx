@@ -40,6 +40,7 @@ const Preferences: NextPage = () => {
         <button className="w-43 p-3 rounded-xl bg-[#195770] text-white font-semibold hover:bg-[#154153] animated animatedFadeInUp fadeInUp mt-8">
           <p>Confirm</p>
         </button>
+      </div>
       </form>
       <div className="text-[#195770] animated animatedFadeInUp fadeInUp">
         <p className="pb-5 font-semibold mt-4">Note: You are not guaranteed your choice of seating, but we will do our best to match you. </p>
