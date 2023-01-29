@@ -1,10 +1,93 @@
 import React from 'react'
+import { IoAirplane } from "react-icons/io5";
+import {BsFillArrowDownCircleFill} from 'react-icons/bs'
+
 
 const result = () => {
   return (
     <>
-    <div className="flex flex-col justify-start items-start p-8 md:justify-center md:items-center bg-gradient-to-b from-sky-300 to-sky-400 md:min-h-screen">
-    
+    <div className="bg-gradient-to-b from-sky-300 to-sky-400 md:min-h-screen">
+    <div className="flex flex-col justify-center items-center h-screen">
+    <div className="flex bg-white p-8 rounded-xl my-10">
+      <div className='flex flex-col justify-between gap-4'>
+        <div>
+          <p>Passenger</p>
+          <p className='text-sky-600 font-bold'>Miss Rev</p>
+        </div>
+        <div className=''>
+          <div className="flex justify-between">
+            <div>
+              <p className="text-xs">BOSTON</p>
+              <p>BOS</p>
+            </div>
+            <div className="p-2">
+            <IoAirplane/>
+            </div>
+            <div>
+              <p className="text-xs">NEW YORK</p>
+              <p>NYC</p>
+            </div>
+            
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-2">
+        <div className="grid grid-cols-2 justify-between gap-10 bg-slate-100 p-4 rounded-xl">
+          <div className=''>
+            <p>Terminal</p>
+            <p className='font-bold'>2E</p>
+          </div>
+          <div className=''>
+            <div>Gate</div>
+            <p className='font-bold'>2E</p>
+          </div>
+        </div>
+        {/* <div className="grid grid-cols-2 justify-between gap-10 bg-slate-200 p-3 rounded-xl">
+          <div className=''>
+            <p>Zone</p>
+            <p className='font-bold'>A</p>
+          </div>
+          <div className=''>
+            <div>Seat</div>
+            <p className='font-bold'>21E</p>
+          </div>
+          
+        </div> */}
+        <div className='grid grid-cols-2 border-dashed border-2 border-slate-200 p-4 rounded-xl'>
+          <div className="flex flex-col">
+            <p>Boards</p>
+            <p className='font-bold'>08:15</p>
+          </div>
+          <div>
+            <p>Departs</p>
+            <p className='font-bold'>08:15</p>
+          </div>
+        </div>
+
+        </div>
+
+        <div className="grid grid-cols-2">
+          <div className="p-3">
+            <p className="text">GROUP</p>
+            <p className="text-sky-600 font-bold">11B</p>
+          </div>
+          <div className="p-3">
+            <p className="text">SEAT</p>
+            <p className="text-sky-600 font-bold">21E</p>
+          </div>
+        </div>
+      
+      </div>
+
+    </div>
+    {/* <div className='flex text-3xl justify-center mt-15 text-sky-600'>
+            <div>
+                <BsFillArrowDownCircleFill className='bottom-0 animate-bounce'/>
+            </div>
+    </div> */}
+
+
+   </div>
    </div>
     </>
   );
