@@ -2,7 +2,7 @@ import { type NextPage } from "next";
 
 const Preferences: NextPage = () => {
 
-  const confirmChoice = e => {
+  const confirmChoice = (e: any) => {
     e.preventDefault();
     const form = document.getElementById("form-pref");
     const [veteran, disabled, elderly, aisle, middle, window2] = form.elements;
