@@ -7,7 +7,7 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
-    "start": "next start"
+    "start": "next start -p $PORT"
   },
   "dependencies": {
     "@fontsource/poppins": "^4.5.10",
