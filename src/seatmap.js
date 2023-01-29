@@ -1,5 +1,5 @@
 import {Graphics, Text} from 'pixi.js';
-import Passenger from './passenger.js';
+import {Passenger} from './passenger.js';
 import Preferences from './preference.js';
 import {lerp, lerpColor, rgbToHex} from './utils.js';
 
@@ -16,12 +16,78 @@ export class SeatMap {
 
 		/**
 		 * Animation information for the seat map.
-		 * @type {Array<Array<{color: {r: number, g: number, b: number}, hover: 0}>>}
+		 * @type {Array<Array<{color: {r: number, g: number, b: number}, opacity: 0, hover: 0}>>}
 		 */
 		this.animation = new Array(34).fill(null).map(() => new Array(6).fill(null).map(() => ({
 			color: {r: 0, g: 0, b: 0},
+			opacity: 1,
 			hover: 0,
 		})));
+
+		/**
+		 * The selected seat.
+		 * @type {{row: number, column: number}?}
+		 */
+		this.selected = null;
+
+		/**
+		 * The scroll position of the seat map. The higher this value, the more the seat map is scrolled down.
+		 */
+		this.scroll = {
+			display: 0,
+			actual: 0,
+		};
+	}
+
+	setupText(g) {
+		this.classText = [
+			new Text('First', {fontFamily: 'Poppins', fontSize: 30, fill: 0xffffff}),
+			new Text('Business', {fontFamily: 'Poppins', fontSize: 30, fill: 0xffffff}),
+			new Text('Economy', {fontFamily: 'Poppins', fontSize: 30, fill: 0xffffff}),
+		];
+
+		for (const text of this.classText) {
+			text.x = window.innerWidth / 2 - 4 * 50;
+			text.anchor.set(1, 0.5);
+			g.addChild(text);
+		}
+
+		this.numbers = [];
+		for (let i = 0; i < 34; ++i) {
+			this.numbers.push(new Text(i + 1, {fontFamily: 'Poppins', fontSize: 30, fill: 0xffffff}));
+		}
+
+		for (let i = 0; i < this.numbers.length; ++i) { // draw row letters
+			const text = this.numbers[i];
+			text.x = window.innerWidth / 2;
+			text.anchor.set(0.5, 0);
+			g.addChild(text);
+		}
+	}
+
+	/**
+	 * @param {number} x
+	 * @param {number} y
+	 */
+	handleClick(x, y) {
+		const mouse = {x, y};
+		for (let row = 0; row < this.seats.length; ++row) {
+			for (let col = 0; col < this.seats[0].length; ++col) {
+				const seatClass = row < 4 ? 'first' : row < 8 ? 'business' : 'economy';
+				const pos = {
+					x: col * 50 + window.innerWidth / 2 - 3.5 * 50 + (col >= 3 ? 30 : 0),
+					y: row * 50 + 50 + (
+						seatClass === 'first' ? 0
+							: seatClass === 'business' ? 30
+							: 60
+					) - this.scroll.display,
+				};
+				const hovered = mouse.x >= pos.x && mouse.x < pos.x + 50 && mouse.y >= pos.y && mouse.y < pos.y + 50;
+				if (hovered) {
+					return this.selected = {row, column: col};
+				}
+			}
+		}
 	}
 
 	/**
@@ -30,18 +96,20 @@ export class SeatMap {
 	 * @param {{x: number, y: number}} mouse The position of the mouse, relative to the upper-left corner of the page.
 	 */
 	draw(g, mouse) {
-		const classText = [
-			new Text('First', {fontFamily: 'Poppins', fontSize: 30, fill: 0xffffff}),
-			new Text('Business', {fontFamily: 'Poppins', fontSize: 30, fill: 0xffffff}),
-			new Text('Economy', {fontFamily: 'Poppins', fontSize: 30, fill: 0xffffff}),
-		];
-		classText[0].y = 50;
-		classText[1].y = 280;
-		classText[2].y = 510;
+		const canvas = document.getElementById('canvas');
+		if (mouse.y !== null && mouse.y < 100) {
+			this.scroll.actual -= 6;
+		} else if (mouse.y !== null && mouse.y > canvas.height - 100) {
+			this.scroll.actual += 6;
+		}
+		this.scroll.display = lerp(this.scroll.display, this.scroll.actual, 0.1);
+		this.scroll.actual = Math.max(0, Math.min(this.scroll.actual, 1200));
 
-		for (const text of classText) {
-			text.x = window.innerWidth - 7 * 50;
-			text.anchor.set(1.2, 0.5);
+		this.classText[0].y = 65 - this.scroll.display;
+		this.classText[1].y = 295 - this.scroll.display;
+		this.classText[2].y = 525 - this.scroll.display;
+
+		for (const text of this.classText) {
 			g.addChild(text);
 		}
 
@@ -53,28 +121,33 @@ export class SeatMap {
 				const hover = animation ? animation.hover : 0;
 				const seatClass = row < 4 ? 'first' : row < 8 ? 'business' : 'economy';
 				const pos = {
-					x: col * 50 + window.innerWidth - 7 * 50 + (col >= 3 ? 30 : 0),
+					x: (col - 3) * 50 + window.innerWidth / 2 + (col >= 3 ? 30 : -30) + 2.5,
 					y: row * 50 + 50 + (
 						seatClass === 'first' ? 0
 							: seatClass === 'business' ? 30
 							: 60
-					),
+					) - this.scroll.display,
 				};
 
-				if (passenger) {
-					animation.color = lerpColor(animation.color, {r: 255, g: 0, b: 0}, 0.1);
+				if (this.numbers[row]) {
+					this.numbers[row].y = pos.y;
+					g.addChild(this.numbers[row]);
 				}
+
+				const selected = this.selected?.row === row && this.selected?.column === col;
+				if (selected) {
+					animation.color = lerpColor(animation.color, {r: 3, g: 252, b: 111}, 0.1);
+				} else {
+					animation.color = lerpColor(animation.color, {r: 0, g: 0, b: 0}, 0.1);
+				}
+
+				animation.opacity = lerp(animation.opacity, passenger ? 0.2 : 1, 0.1);
 
 				const hovered = mouse.x >= pos.x && mouse.x < pos.x + 50 && mouse.y >= pos.y && mouse.y < pos.y + 50;
+				animation.hover = lerp(animation.hover, hovered ? 1 : selected ? 0.6 : 0, 0.1);
 
-				if (hovered) {
-					animation.hover = lerp(animation.hover, 1, 0.1);
-				} else {
-					animation.hover = lerp(animation.hover, 0, 0.1);
-				}
-
-				g.beginFill(animation ? rgbToHex(animation.color): 0)
-					.lineStyle(3 + hover * 2, 0xffffff)
+				g.beginFill(rgbToHex(animation.color), animation.opacity)
+					.lineStyle(3 + hover * 2, 0xffffff, animation.opacity)
 					.drawRoundedRect(
 						pos.x - hover * 5,
 						pos.y - hover * 5,
@@ -242,72 +315,11 @@ export class SeatMap {
 }
 
 /**
- * Given a seating chart, determine the queue of passengers to enter the plane that minimizes the amount of time passengers have to wait. Returns the queue of passengers divided into boarding groups.
- * @param {SeatMap} seatMap The seating chart.
- */
-export function boardingQueue(seatMap) {
-	// passengers will take time to board (walking to seat, loading luggage, etc.)
-	// in order to minimize the total time passengers have to wait, we want to maximize the number of passengers boarding at once to minimize the above time effect
-	// for example, we can have four 1st class passengers board at once by having two passengers board from each aisle
-
-	const queue = [];
-
-	// imagine the plane looks like this:
-	//
-	// front of plane
-	//
-	// . . . | . . .
-	// . . . | . . .
-	// . . . | . . .
-	// . . . | . . .
-	// . . . | . . .
-	// . . . | . . .
-	//      ...
-	//
-	// back of plane
-	//
-	// the fastest way to board first class and business class passengers is to have passengers from each aisle board together:
-	//
-	// front of plane
-	//
-	// 1 . . | . . .
-	// . . . | . . 2
-	// 3 . . | . . .
-	// . . . | . . 4
-	// 5 . . | . . .
-	// . . . | . . 6
-	//      ...
-	//
-	// back of plane
-
-	function doAisle(column, rows) {
-		for (let row = rows[0]; row < rows[1]; ++row) {
-			queue.push({row, column});
-			column = 5 - column;
-		}
-	}
-
-	// handle first class and business class passengers first
-	for (let i = 0; i < 3; ++i) { // 3 aisles
-		doAisle(i, [0, 8]);
-		doAisle(5 - i, [0, 8]);
-	}
-
-	// handle economy class passengers
-	for (let i = 0; i < 3; ++i) { // 3 aisles
-		doAisle(i, [8, 34]);
-		doAisle(5 - i, [8, 34]);
-	}
-
-	return queue.map(({row, column}) => seatMap.seats[row][column]);
-}
-
-/**
  * Generate a random seating chart.
  */
 export function testSeatingChart() {
 	const passengers = [];
-	for (let i = 0; i < 204; ++i) {
+	for (let i = 0; i < 204 - 150; ++i) {
 		const seatClass = i < 24 ? 'first':
 			i < 48 ? 'business':
 			'economy';

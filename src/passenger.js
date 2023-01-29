@@ -1,9 +1,19 @@
 import Preferences from './preference.js';
 
 /**
+ * The weights for each possible passenger flag. The higher the wegiht, the more important the flag is.
+ */
+export const FLAG_WEIGHTS = {
+	military: 4,
+	disability: 3,
+	elderly: 2,
+	family: 1,
+};
+
+/**
  * Represents a passenger and their preferences.
  */
-export default class Passenger {
+export class Passenger {
 	/**
 	 * @param {string} ticket The passenger's ticket number.
 	 * @param {Preferences} preferences The passenger's preferences.
@@ -22,7 +32,6 @@ export default class Passenger {
 
 		/**
 		 * The flags that the passenger has. Flags can include: 'military', 'family', 'elderly', 'disability', etc. Flags can affect the passenger's seat score or their queue position.
-		 * TODO: unused
 		 */
 		this.flags = new Set(flags);
 	}
