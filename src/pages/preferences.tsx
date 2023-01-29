@@ -10,36 +10,34 @@ const Preferences: NextPage = () => {
         <p className="text-[#195770] font-bold">First, we need some information.</p>
       </div>
       <br></br>
-      <div className="bg-white p-6 rounded-lg hover:bg-slate-100 shadow-lg animated animatedFadeInUp fadeInUp">
-        <p className="font-semibold">Please select which of the following apply to you:</p>
-        <form>
+      <form>
+        <div className="bg-white p-6 rounded-lg hover:bg-slate-100 shadow-lg animated animatedFadeInUp fadeInUp">
+          <p className="font-semibold mb-4">Please select which of the following apply to you:</p>
           <input type="checkbox" value="Veteran" />
           <label> Veteran</label><br />
           <input type="checkbox" value="Disabled" />
           <label> Disabled</label><br />
           <input type="checkbox" value="Elderly" />
-          <label> Elderly</label><br/>
-        </form>
-      </div>
-      <div className="p-2"></div>
-      <div className="bg-white p-6 rounded-lg hover:bg-slate-100 shadow-lg animated animatedFadeInUp fadeInUp">
-        <p className="font-semibold">Please select your preferred seat(s):</p>
-        <form>
+          <label> Elderly</label><br />
+        </div>
+        <div className="p-2"></div>
+        <div className="bg-white p-6 rounded-lg hover:bg-slate-100 shadow-lg animated animatedFadeInUp fadeInUp">
+          <p className="font-semibold">Please select your preferred seat(s):</p>
           <input type="checkbox" value="Aisle" />
           <label> Aisle</label><br />
           <input type="checkbox" value="Middle" />
           <label> Middle</label><br />
           <input type="checkbox" value="Window" />
-          <label> Window</label><br/>
-        </form>
-      </div>
+          <label> Window</label><br />
+        </div>
+      </form>
       <Link className="pt-6 pb-5" href="/result">
         <button className="w-43 p-3 rounded-xl bg-[#195770] text-white font-semibold hover:bg-[#154153] animated animatedFadeInUp fadeInUp">
           <p>Confirm Choice</p>
         </button>
       </Link>
       <div className="text-[#195770] animated animatedFadeInUp fadeInUp">
-      <p className="pb-5 font-semibold">Note: You are not guaranteed your choice of seating, but we will do our best to match you. </p>
+        <p className="pb-5 font-semibold">Note: You are not guaranteed your choice of seating, but we will do our best to match you. </p>
       </div>
     </div>
   );
