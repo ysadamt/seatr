@@ -7,10 +7,9 @@ export default class Preferences {
 	 * @param {string} seatClass The passenger's seat class.
 	 * @param {Array<string>} neighbors The ticket numbers of other passengers this passenger would like to sit next to.
 	 */
-	constructor(seatType, seatClass, neighbors) {
-		// TODO: consider: military, family, elderly, disability, etc.
+	constructor(seatType, seatClass, neighbors = []) {
 		/**
-		 * The type of seat the passenger prefers. Can be: 'window', 'middle', or 'aisle'.
+		 * The type of seat the passenger prefers. Can be: 'window', 'middle', 'aisle', or 'any'.
 		 */
 		this.seatType = seatType;
 
@@ -23,5 +22,11 @@ export default class Preferences {
 		 * The ticket numbers of other passengers this passenger would like to sit next to.
 		 */
 		this.neighbors = neighbors;
+
+		/**
+		 * The exact seat the passenger would like to sit in, if possible.
+		 * @type {{row: number, column: number}?}
+		 */
+		this.exactSeat = null;
 	}
 }

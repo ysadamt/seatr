@@ -1,23 +1,32 @@
-import Passenger from './passenger.js';
-import Preferences from './preference.js';
-import SeatMap from './seatmap.js';
+import '@fontsource/poppins';
+import {Application, Graphics, Text} from 'pixi.js';
+import {boardingQueue, testSeatingChart} from './seatmap.js';
 
 /**
- * Given a list of passengers and their preferences, returns a seating chart that attempts to satisfy the preferences of all passengers. Passengers that come earlier (earlier in the given array) are given higher priority in their preferences.
- * @param {Array<Passenger>} passengers The list of passengers and their preferences.
+ * The position of the mouse, relative to the upper-left corner of the page.
  */
-function seatingChart(passengers) {
-	const seatMap = new SeatMap();
-	// TODO
-}
+const mouse = {x: 0, y: 0};
+window.addEventListener('mousemove', e => {
+	mouse.x = e.clientX;
+	mouse.y = e.clientY;
+});
 
-/**
- * Given a seating chart, determine the queue of passengers to enter the plane that minimizes the amount of time passengers have to wait. Returns the queue of passengers divided into boarding groups.
- */
-function boardingQueue(seatingChart) {
-	// TODO
-}
+const app = new Application({
+	width: window.innerWidth,
+	height: window.innerHeight,
+	backgroundColor: 0,
+	antialias: true,
+	view: document.getElementById('canvas'),
+	resizeTo: document.getElementById('canvas'),
+});
 
-window.Passenger = Passenger;
-window.Preferences = Preferences;
-window.SeatMap = SeatMap;
+const seatMap = testSeatingChart();
+const g = new Graphics();
+app.stage.addChild(g);
+
+console.log(boardingQueue(seatMap));
+
+app.ticker.add(() => {
+	g.clear().removeChildren();
+	seatMap.draw(g, mouse);
+});
