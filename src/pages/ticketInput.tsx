@@ -1,5 +1,7 @@
 import Link from "next/link";
 import React, { useState, useRef, useEffect } from "react";
+import plane from '../../public/airplane-modified.png'
+import Image from 'next/image';
 
 const ticketInput = () => {
   const [ticketNum, setTicketNum] = useState("");
@@ -25,7 +27,11 @@ const ticketInput = () => {
 
   return (
     <div className="flex flex-row justify-center align-center h-screen w-full bg-gradient-to-b from-sky-300 to-sky-400">
+      <div className="absolute bg-scroll animated animatedFadeInUp fadeInUp">
+      <Image src={plane} alt="nice plane" width={400}/>
+      </div>
       <div className="flex flex-col justify-center align-center max-w-fit gap-8">
+      
         <div className="gap-2 animated animatedFadeInUp fadeInUp">
           <form className="flex flex-col items-center justify-center" autoComplete="off">
             <label className="flex flex-col items-center justify-center w-full font-bold text-xl text-[#195770]">

@@ -5,12 +5,14 @@ import Link from "next/link";
 const Preferences: NextPage = () => {
 
   return (
-    <div className="flex flex-col justify-start items-start p-8 md:justify-center md:items-center bg-gradient-to-b from-sky-300 to-sky-400 md:min-h-screen">
+    <div className="flex flex-col justify-start items-start p-8 pt-20 md:justify-center md:items-center bg-gradient-to-b from-sky-300 to-sky-400 min-h-screen">
       <div className="flex text-xl text-white animated animatedFadeInUp fadeInUp">
         <p className="text-[#195770] font-bold">First, we need some information.</p>
       </div>
       <br></br>
+      
       <form autoComplete="off">
+      <div className="p-2">
         <div className="bg-white p-6 rounded-lg hover:bg-slate-100 shadow-lg animated animatedFadeInUp fadeInUp">
           <p className="font-semibold mb-4">Please select which of the following apply to you:</p>
           <input id="veteran" type="checkbox" value="Veteran" />
@@ -29,6 +31,7 @@ const Preferences: NextPage = () => {
           <label htmlFor="middle"> Middle</label><br />
           <input id="window" type="checkbox" value="Window" />
           <label htmlFor="window"> Window</label><br />
+        </div>
         </div>
       </form>
       <Link className="pt-6 pb-5" href="/result">
