@@ -28,13 +28,18 @@ const result = () => {
         </div>
     </div>
 
-    <div className="flex flex-col justify-center items-center h-screen">
-      <div className='pt-5 font-bold text-[#195770] animated animatedFadeInUp fadeInUp'>
+    <div className="flex flex-col justify-center my-5 items-center">
+      <div className='font-bold text-[#195770] pt-3 animated animatedFadeInUp fadeInUp'>
         <p>You're all set!</p>
       </div>
-    <div className="flex bg-white p-8 rounded-xl my-10 animated animatedFadeInUp fadeInUp shadow-lg">
+    <div className="flex bg-white p-6 rounded-xl my-10 animated animatedFadeInUp fadeInUp shadow-lg">
       <div className='flex flex-col justify-between gap-4'>
-        <div className='flex flex-col py-3 gap-4'>
+        {/* <div className="bg-sky-600 w-full text-white">Boarding Pass</div> */}
+        {/* <div className="flex flex-row justify-between border-dashed border-2 border-slate-200 p-2 rounded-xl">
+          <div className="text-sm">AIR AGGIE</div>
+          <div className="text-sm">BOARDING PASS</div>
+        </div> */}
+        <div className='flex flex-col py-2 gap-2'>
         <div>
           <p>Passenger</p>
           <p className='text-sky-600 font-bold'>Miss Rev</p>
@@ -62,7 +67,7 @@ const result = () => {
         </div>
 
         <div className="flex flex-col gap-2">
-        <div className="grid grid-cols-2 justify-between gap-10 bg-slate-100 p-4 rounded-xl">
+        <div className="grid grid-cols-2 justify-between gap-6 bg-slate-100 p-4 rounded-xl">
           <div className=''>
             <p>Terminal</p>
             <p className='font-bold'>2E</p>
@@ -83,7 +88,7 @@ const result = () => {
           </div>
           
         </div> */}
-        <div className='grid grid-cols-2 border-dashed border-2 border-slate-200 p-4 rounded-xl'>
+        <div className='grid grid-cols-2 border-dashed border-2 border-slate-200 p-2 rounded-xl'>
           <div className="flex flex-col">
             <p>Boards</p>
             <p className='font-bold'>08:15</p>
