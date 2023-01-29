@@ -6,12 +6,12 @@ const Preferences: NextPage = () => {
 
   return (
     <div className="flex flex-col justify-start items-start p-8 md:justify-center md:items-center bg-gradient-to-b from-sky-300 to-sky-400 md:min-h-screen">
-      <div className="flex text-xl font-semibold text-white">
-        <p className="text-[#195770]">First, we need some information.</p>
+      <div className="flex text-xl font-semibold text-white animated animatedFadeInUp fadeInUp">
+        <p className="text-[#195770] font-bold">First, we need some information.</p>
       </div>
       <br></br>
-      <div className="bg-white p-6 rounded-lg hover:bg-slate-100 shadow-lg">
-        <p>Please select which of the following apply to you:</p>
+      <div className="bg-white p-6 rounded-lg hover:bg-slate-100 shadow-lg animated animatedFadeInUp fadeInUp">
+        <p className="font-semibold">Please select which of the following apply to you:</p>
         <form>
           <input type="checkbox" value="Veteran" />
           <label> Veteran</label><br />
@@ -19,13 +19,11 @@ const Preferences: NextPage = () => {
           <label> Disabled</label><br />
           <input type="checkbox" value="Elderly" />
           <label> Elderly</label><br/>
-          <input type="checkbox" value="Elderly" />
-          <label> Family</label><br/>
         </form>
       </div>
       <div className="p-2"></div>
-      <div className="bg-white p-6 rounded-lg hover:bg-slate-100 shadow-lg">
-        <p>Please select your preferred seat(s):</p>
+      <div className="bg-white p-6 rounded-lg hover:bg-slate-100 shadow-lg animated animatedFadeInUp fadeInUp">
+        <p className="font-semibold">Please select your preferred seat(s):</p>
         <form>
           <input type="checkbox" value="Aisle" />
           <label> Aisle</label><br />
@@ -36,12 +34,12 @@ const Preferences: NextPage = () => {
         </form>
       </div>
       <Link className="pt-6 pb-5" href="/ticketInput">
-        <button className="w-43 p-3 rounded-xl bg-[#195770] text-white font-semibold hover:bg-[#154153]">
+        <button className="w-43 p-3 rounded-xl bg-[#195770] text-white font-semibold hover:bg-[#154153] animated animatedFadeInUp fadeInUp">
           <p>Confirm Choice</p>
         </button>
       </Link>
-      <div className="text-[#195770]">
-      <p className="pb-5">Note: You are not guaranteed your choice of seating, but we will do our best to match you. </p>
+      <div className="text-[#195770] animated animatedFadeInUp fadeInUp">
+      <p className="pb-5 font-semibold">Note: You are not guaranteed your choice of seating, but we will do our best to match you. </p>
       </div>
     </div>
   );

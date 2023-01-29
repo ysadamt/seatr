@@ -3,6 +3,20 @@ import { MdEventSeat } from "react-icons/md";
 import Head from "next/head";
 import Link from "next/link";
 
+const duration = 300;
+
+const defaultStyle = {
+  transition: `opacity ${duration}ms ease-in-out`,
+  opacity: 0,
+}
+
+const transitionStyles = {
+  entering: { opacity: 1 },
+  entered: { opacity: 1 },
+  exiting: { opacity: 0 },
+  exited: { opacity: 0 },
+};
+
 
 const Home: NextPage = () => {
   return (
@@ -29,20 +43,20 @@ const Home: NextPage = () => {
         </div>
       </div>
 
-      <Link href="/"></Link>
+      {/* <Link href="/"></Link>
       <Link href="/seatSelect"></Link>
       <Link href="/preferences"></Link>
-      <Link href="/result"></Link>
+      <Link href="/result"></Link> */}
 
       <div className="flex flex-col justify-center items-center h-screen gap-8">
-        <div className="flex flex-row gap-2 items-center justify-center">
+        <div className="flex flex-row gap-2 items-center justify-center animated animatedFadeInUp fadeInUp">
           <div className="text-[#195770]">
             <MdEventSeat size={64} />
           </div>
           <h1 className="text-6xl font-semibold justify-center items-center text-[#195770]">seatr</h1>
         </div>
         <Link href="/ticketInput">
-          <button className="w-32 bg-[#195770] p-2 rounded-xl shadow-lg font-semibold">
+          <button className="w-32 bg-[#195770] p-2 rounded-xl shadow-lg font-semibold animated animatedFadeInUp fadeInUp">
             <p className="text-white">Check In</p>
           </button>
         </Link>
