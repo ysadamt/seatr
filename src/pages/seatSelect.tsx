@@ -7,7 +7,7 @@ import { toSeatStr } from '../utils.js';
 const seatSelect = () => {
   useEffect(() => {
     (async () => {
-      const canvas = document.getElementById("canvas");
+      const canvas = document.getElementById("canvas") as HTMLCanvasElement;
       const mouse = { x: 0, y: 0 };
       const pointer = { x: 0, y: 0 };
       canvas.addEventListener("mousemove", e => {
