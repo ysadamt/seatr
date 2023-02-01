@@ -12,9 +12,11 @@ const PORT =  process.env.PORT || 4001;
 const app = express();
 
 // Apply middleware
-app.use(cors());
-app.use(helmet());
-app.use(compression());
+app.use(cors()); // cors allows cross-origin requests
+app.use(helmet()); // helmet secures Express apps by setting various HTTP headers
+app.use(compression()); // compression compresses responses
+
+// body-parser parses incoming requests
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
