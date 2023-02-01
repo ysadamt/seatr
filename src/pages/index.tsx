@@ -3,8 +3,8 @@ import { MdEventSeat } from "react-icons/md";
 import Head from "next/head";
 import Link from "next/link";
 import { useEffect } from "react";
-import axios from "axios";
 import { faker } from '@faker-js/faker';
+import { supabase } from "../supabaseClient";
 
 const Home: NextPage = () => {
   useEffect(() => {
@@ -15,65 +15,57 @@ const Home: NextPage = () => {
 
   // only supposed to be used once to create dummy passengers
   const createDummyPassengers = async () => {
-    // actually creates 200 passengers when loaded
     for (let i = 0; i < 100; i++) {
-      axios.post("http://localhost:4001/passengers/create", {
-        name: faker.name.firstName() + " " + faker.name.lastName(),
-        ticketNum: faker.random.numeric(12, { allowLeadingZeros: true }),
-        seatType: faker.helpers.arrayElement([
-          "window",
-          "aisle",
-          "middle",
-        ]),
-        seatClass: faker.helpers.arrayElement([
-          "economy",
-          "business",
-          "first",
-        ]),
-        neighbors: null,
-        exactSeat: null,
-        veteran: faker.helpers.arrayElement([0, 1]),
-        disabled: faker.helpers.arrayElement([0, 1]),
-        elderly: faker.helpers.arrayElement([0, 1]),
-      })
-        .then(res => {
-          console.log(res.data);
-        })
-        .catch(err => {
-          console.log(err);
-        })
+      const { data: passengers, error } = await supabase
+        .from("passengers")
+        .insert([
+          {
+            name: faker.name.firstName() + " " + faker.name.lastName(),
+            ticketNum: faker.random.numeric(12, { allowLeadingZeros: true }),
+            seatType: faker.helpers.arrayElement([
+              "window",
+              "aisle",
+              "middle",
+            ]),
+            seatClass: faker.helpers.arrayElement([
+              "economy",
+              "business",
+              "first",
+            ]),
+            neighbors: null,
+            exactSeat: null,
+            veteran: faker.helpers.arrayElement([0, 1]),
+            disabled: faker.helpers.arrayElement([0, 1]),
+            elderly: faker.helpers.arrayElement([0, 1]),
+          },])
+
+      if (error) console.log("error", error);
     }
   }
 
   const createCustomPassenger = async () => {
-    axios.post("http://localhost:4001/passengers/create", {
-      name: "Adam Teo",
-      ticketNum: "001234567890",
-      seatType: "",
-      seatClass: "",
-      neighbors: null,
-      exactSeat: null,
-      veteran: 0,
-      disabled: 0,
-      elderly: 0,
-    })
-      .then(res => {
-        console.log(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-      })
+    const { data: passengers, error } = await supabase
+      .from("passengers")
+      .insert([
+        {
+          name: "Adam Teo",
+          ticketNum: "001234567890",
+          seatType: null,
+          seatClass: null,
+          neighbors: null,
+          exactSeat: null,
+          veteran: null,
+          disabled: null,
+          elderly: null,
+        },])
   }
 
 
   const fetchPassengers = async () => {
-    axios.get("http://localhost:4001/passengers/all")
-      .then(res => {
-        console.log(res.data);
-      })
-      .catch(err => {
-        console.log(err);
-      })
+    const { data, error } = await supabase
+      .from("passengers")
+      .select("*");
+    console.log(data);
   }
 
   return (
