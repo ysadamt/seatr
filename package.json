@@ -11,12 +11,16 @@
   },
   "dependencies": {
     "@fontsource/poppins": "^4.5.10",
+    "@types/express": "^4.17.16",
+    "concurrently": "^7.6.0",
     "dotenv": "^16.0.3",
     "next": "13.1.2",
+    "nodemon": "^2.0.20",
     "pixi.js": "^7.1.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.7.1",
+    "sqlite3": "^5.1.4",
     "zod": "^3.20.2"
   },
   "devDependencies": {
