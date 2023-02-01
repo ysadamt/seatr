@@ -1,7 +1,10 @@
 import path from "path";
+import { fileURLToPath } from "url";
 import knex from "knex";
 
-const dbPath = path.resolve(__dirname, "db/database.sqlite");
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const dbPath = path.resolve(__dirname, "database.sqlite");
 
 const db = knex({
   client: "sqlite3",
@@ -11,11 +14,11 @@ const db = knex({
   useNullAsDefault: true,
 });
 
-knex.schema
+db.schema
   .hasTable("passengers")
   .then((exists) => {
     if (!exists) {
-      return knex.schema
+      return db.schema
         .createTable("passengers", (table) => {
           table.increments("ticketID").primary();
           table.string("name");
@@ -35,7 +38,7 @@ knex.schema
     console.log(`Error creating database: ${err}`);
   });
 
-knex
+db
   .select("*")
   .from("passengers")
   .then((data) => {

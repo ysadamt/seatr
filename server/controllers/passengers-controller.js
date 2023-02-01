@@ -7,7 +7,7 @@ export const getPassengers = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
-}
+};
 
 export const getPassenger = async (req, res) => {
   try {
@@ -19,4 +19,13 @@ export const getPassenger = async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
-}
+};
+
+export const createPassenger = async (req, res) => {
+  try {
+    const passenger = await knex("passengers").insert(req.body);
+    res.json(passenger);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
