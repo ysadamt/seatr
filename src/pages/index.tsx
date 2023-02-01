@@ -2,23 +2,43 @@ import { type NextPage } from "next";
 import { MdEventSeat } from "react-icons/md";
 import Head from "next/head";
 import Link from "next/link";
-
-const duration = 300;
-
-const defaultStyle = {
-  transition: `opacity ${duration}ms ease-in-out`,
-  opacity: 0,
-}
-
-const transitionStyles = {
-  entering: { opacity: 1 },
-  entered: { opacity: 1 },
-  exiting: { opacity: 0 },
-  exited: { opacity: 0 },
-};
-
+import { useEffect } from "react";
+import axios from "axios";
+import { faker } from '@faker-js/faker';
 
 const Home: NextPage = () => {
+  useEffect(() => {
+    // createDummyPassengers();
+    fetchPassengers();
+  }, [])
+
+  // only supposed to be used once to create dummy passengers
+  const createDummyPassengers = async () => {
+    // actually creates 200 passengers when loaded
+    for (let i = 0; i < 100; i++) {
+      axios.post("http://localhost:4001/passengers/create", {
+        name: faker.name.firstName() + " " + faker.name.lastName(),
+        ticketNum: faker.random.numeric(12, { allowLeadingZeros: true }),
+      })
+        .then(res => {
+          console.log(res.data);
+        })
+        .catch(err => {
+          console.log(err);
+        })
+    }
+  }
+
+  const fetchPassengers = async () => {
+    axios.get("http://localhost:4001/passengers/all")
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
   return (
     <>
       <div id="background-wrap" className="bg-gradient-to-b from-sky-300 to-sky-400">

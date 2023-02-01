@@ -20,8 +20,16 @@ db.schema
     if (!exists) {
       return db.schema
         .createTable("passengers", (table) => {
-          table.increments("ticketID").primary();
+          table.increments("id").primary();
+          table.string("ticketNum");
           table.string("name");
+          table.string("seatType");
+          table.string("seatClass");
+          table.string("neighbors");
+          table.string("exactSeat");
+          table.integer("veteran");
+          table.integer("disabled");
+          table.integer("elderly");
         })
         .then(() => {
           console.log("Table 'passengers' created");
@@ -31,55 +39,10 @@ db.schema
         });
     }
   })
-db.schema
-  .hasTable("preferences")
-  .then((exists) => {
-    if (!exists) {
-      return db.schema
-        .createTable("preferences", (table) => {
-          table.increments("ticketID").primary();
-          table.string("seatType");
-          table.string("seatClass");
-          table.string("neighbors");
-          table.string("exactSeat");
-        })
-        .then(() => {
-          console.log("Table 'preferences' created");
-        })
-        .catch((err) => {
-          console.log(`Error creating table 'preferences': ${err}`);
-        });
-    }
-  })
-db.schema
-  .hasTable("flags")
-  .then((exists) => {
-    if (!exists) {
-      return db.schema
-        .createTable("flags", (table) => {
-          table.increments("ticketID").primary();
-          table.boolean("veteran");
-          table.boolean("disabled");
-          table.boolean("elderly");
-        })
-        .then(() => {
-          console.log("Table 'flags' created");
-        })
-        .catch((err) => {
-          console.log(`Error creating table 'flags': ${err}`);
-        });
-    }
-  })
-  .then(() => {
-    console.log("Database ready");
-  })
-  .catch((err) => {
-    console.log(`Error creating database: ${err}`);
-  });
 
   // inner join passengers with preferences and flags
-  db.from("passengers").innerJoin("preferences", "passengers.ticketID", "preferences.ticketID")
-  db.from("passengers").innerJoin("flags", "passengers.ticketID", "flags.ticketID")
+  db.from("passengers").innerJoin("preferences", "passengers.id", "preferences.id")
+  db.from("passengers").innerJoin("flags", "passengers.id", "flags.id")
 
 // db
 //   .select("*")
