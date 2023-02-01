@@ -4,9 +4,9 @@ const Preferences: NextPage = () => {
 
   const confirmChoice = (e: any) => {
     e.preventDefault();
-    const form = document.getElementById("form-pref");
+    const form = document.getElementById("form-pref") as HTMLFormElement;
     const [veteran, disabled, elderly, aisle, middle, window2] = form.elements;
-    window.location.href = `/result?flags=${+veteran.checked},${+disabled.checked},${+elderly.checked}&seat=${+aisle.checked},${+middle.checked},${+window2.checked}`;
+    window.location.href = `/result?flags=${+(veteran as HTMLInputElement).checked},${+(disabled as HTMLInputElement).checked},${+(elderly as HTMLInputElement).checked}&seat=${+(aisle as HTMLInputElement).checked},${+(middle as HTMLInputElement).checked},${+(window2 as HTMLInputElement).checked}`;
   };
 
   return (
