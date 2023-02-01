@@ -31,6 +31,45 @@ db.schema
         });
     }
   })
+db.schema
+  .hasTable("preferences")
+  .then((exists) => {
+    if (!exists) {
+      return db.schema
+        .createTable("preferences", (table) => {
+          table.increments("id").primary();
+          table.string("seatType");
+          table.string("seatClass");
+          table.string("neighbors");
+          table.string("exactSeat");
+        })
+        .then(() => {
+          console.log("Table 'preferences' created");
+        })
+        .catch((err) => {
+          console.log(`Error creating table 'preferences': ${err}`);
+        });
+    }
+  })
+db.schema
+  .hasTable("flags")
+  .then((exists) => {
+    if (!exists) {
+      return db.schema
+        .createTable("flags", (table) => {
+          table.increments("id").primary();
+          table.boolean("veteran");
+          table.boolean("disabled");
+          table.boolean("elderly");
+        })
+        .then(() => {
+          console.log("Table 'flags' created");
+        })
+        .catch((err) => {
+          console.log(`Error creating table 'flags': ${err}`);
+        });
+    }
+  })
   .then(() => {
     console.log("Database ready");
   })
@@ -38,14 +77,14 @@ db.schema
     console.log(`Error creating database: ${err}`);
   });
 
-db
-  .select("*")
-  .from("passengers")
-  .then((data) => {
-    console.log("Data: ", data);
-  })
-  .catch((err) => {
-    console.log(`Error selecting from database: ${err}`);
-  });
+// db
+//   .select("*")
+//   .from("passengers")
+//   .then((data) => {
+//     console.log("Data: ", data);
+//   })
+//   .catch((err) => {
+//     console.log(`Error selecting from database: ${err}`);
+//   });
 
 export default db;
