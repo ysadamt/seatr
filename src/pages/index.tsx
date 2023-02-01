@@ -9,6 +9,7 @@ import { faker } from '@faker-js/faker';
 const Home: NextPage = () => {
   useEffect(() => {
     // createDummyPassengers();
+    // createCustomPassenger();
     fetchPassengers();
   }, [])
 
@@ -19,6 +20,21 @@ const Home: NextPage = () => {
       axios.post("http://localhost:4001/passengers/create", {
         name: faker.name.firstName() + " " + faker.name.lastName(),
         ticketNum: faker.random.numeric(12, { allowLeadingZeros: true }),
+        seatType: faker.helpers.arrayElement([
+          "window",
+          "aisle",
+          "middle",
+        ]),
+        seatClass: faker.helpers.arrayElement([
+          "economy",
+          "business",
+          "first",
+        ]),
+        neighbors: null,
+        exactSeat: null,
+        veteran: faker.helpers.arrayElement([0, 1]),
+        disabled: faker.helpers.arrayElement([0, 1]),
+        elderly: faker.helpers.arrayElement([0, 1]),
       })
         .then(res => {
           console.log(res.data);
@@ -28,6 +44,27 @@ const Home: NextPage = () => {
         })
     }
   }
+
+  const createCustomPassenger = async () => {
+    axios.post("http://localhost:4001/passengers/create", {
+      name: "Adam Teo",
+      ticketNum: "001234567890",
+      seatType: "",
+      seatClass: "",
+      neighbors: null,
+      exactSeat: null,
+      veteran: 0,
+      disabled: 0,
+      elderly: 0,
+    })
+      .then(res => {
+        console.log(res.data);
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  }
+
 
   const fetchPassengers = async () => {
     axios.get("http://localhost:4001/passengers/all")

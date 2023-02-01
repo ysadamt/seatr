@@ -36,21 +36,13 @@ export const createPassenger = async (req, res) => {
             .insert({
               ticketNum: req.body.ticketNum,
               name: req.body.name,
-              seatType: faker.helpers.arrayElement([
-                "window",
-                "aisle",
-                "middle",
-              ]),
-              seatClass: faker.helpers.arrayElement([
-                "economy",
-                "business",
-                "first",
-              ]),
-              neighbors: null,
-              exactSeat: null,
-              veteran: faker.helpers.arrayElement([0, 1]),
-              disabled: faker.helpers.arrayElement([0, 1]),
-              elderly: faker.helpers.arrayElement([0, 1]),
+              seatType: req.body.seatType,
+              seatClass: req.body.seatClass,
+              neighbors: req.body.neighbors,
+              exactSeat: req.body.exactSeat,
+              veteran: req.body.veteran,
+              disabled: req.body.disabled,
+              elderly: req.body.elderly,
             })
             .then(() => {
               res.json("success");

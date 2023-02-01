@@ -38,11 +38,7 @@ db.schema
           console.log(`Error creating table 'passengers': ${err}`);
         });
     }
-  })
-
-  // inner join passengers with preferences and flags
-  db.from("passengers").innerJoin("preferences", "passengers.id", "preferences.id")
-  db.from("passengers").innerJoin("flags", "passengers.id", "flags.id")
+  });
 
 // db
 //   .select("*")
