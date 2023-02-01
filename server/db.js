@@ -37,7 +37,7 @@ db.schema
     if (!exists) {
       return db.schema
         .createTable("preferences", (table) => {
-          table.increments("id").primary();
+          table.increments("ticketID").primary();
           table.string("seatType");
           table.string("seatClass");
           table.string("neighbors");
@@ -57,7 +57,7 @@ db.schema
     if (!exists) {
       return db.schema
         .createTable("flags", (table) => {
-          table.increments("id").primary();
+          table.increments("ticketID").primary();
           table.boolean("veteran");
           table.boolean("disabled");
           table.boolean("elderly");
@@ -76,6 +76,10 @@ db.schema
   .catch((err) => {
     console.log(`Error creating database: ${err}`);
   });
+
+  // inner join passengers with preferences and flags
+  db.from("passengers").innerJoin("preferences", "passengers.ticketID", "preferences.ticketID")
+  db.from("passengers").innerJoin("flags", "passengers.ticketID", "flags.ticketID")
 
 // db
 //   .select("*")
