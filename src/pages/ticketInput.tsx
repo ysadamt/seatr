@@ -19,7 +19,7 @@ const ticketInput = () => {
       if (passengers.length === 0) {
         setValid(false);
       } else {
-        window.location.href = "/seatSelect";
+        window.location.href = `/seatSelect?ticketNum=${ticketNum}`;
       }
     } else {
       setValid(false);
@@ -37,7 +37,7 @@ const ticketInput = () => {
       if (passengers.length === 0) {
         setValid(false);
       } else {
-        window.location.href = "/preferences";
+        window.location.href = `/preferences?ticketNum=${ticketNum}`;
       }
     } else {
       setValid(false);
