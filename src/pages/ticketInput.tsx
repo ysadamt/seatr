@@ -16,7 +16,7 @@ const ticketInput = () => {
         .select("*")
         .eq("ticketNum", ticketNum)
       if (error) console.log("error", error);
-      if (passengers.length === 0) {
+      if (passengers === null || passengers.length === 0) {
         setValid(false);
       } else {
         window.location.href = `/seatSelect?ticketNum=${ticketNum}`;
@@ -34,7 +34,7 @@ const ticketInput = () => {
         .select("*")
         .eq("ticketNum", ticketNum)
       if (error) console.log("error", error);
-      if (passengers.length === 0) {
+      if (passengers === null || passengers.length === 0) {
         setValid(false);
       } else {
         window.location.href = `/preferences?ticketNum=${ticketNum}`;
