@@ -2,9 +2,9 @@ import { type NextPage } from "next";
 import { useState } from "react";
 
 const Preferences: NextPage = () => {
-  const [ticketNum, setTicketNum] = useState("");
+  const [ticketNum, setTicketNum] = useState<string | null>("");
 
-  const confirmChoice = (e: any) => {
+  const confirmChoice = (e: React.SyntheticEvent) => {
     e.preventDefault();
     const params = new URLSearchParams(document.location.search);
       const ticketNum = params.get('ticketNum');

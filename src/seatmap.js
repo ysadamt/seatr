@@ -334,6 +334,7 @@ export function testSeatingChart(deterministicPassenger) {
 			rand < 0.7 ? 'middle':
 			'aisle';
 
+		// TODO: fetch dummy data from a database
 		passengers.push(new Passenger('0'.repeat(12), 'John Doe', new Preferences(seatType, seatClass)));
 	}
 	

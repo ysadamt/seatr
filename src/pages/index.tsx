@@ -15,6 +15,7 @@ const Home: NextPage = () => {
 
   // only supposed to be used once to create dummy passengers
   const createDummyPassengers = async () => {
+    // TODO: clear table and add specific number of first, business, and economy passengers
     for (let i = 0; i < 100; i++) {
       const { data: passengers, error } = await supabase
         .from("passengers")
