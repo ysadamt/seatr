@@ -2,23 +2,73 @@ import { type NextPage } from "next";
 import { MdEventSeat } from "react-icons/md";
 import Head from "next/head";
 import Link from "next/link";
-
-const duration = 300;
-
-const defaultStyle = {
-  transition: `opacity ${duration}ms ease-in-out`,
-  opacity: 0,
-}
-
-const transitionStyles = {
-  entering: { opacity: 1 },
-  entered: { opacity: 1 },
-  exiting: { opacity: 0 },
-  exited: { opacity: 0 },
-};
-
+import { useEffect } from "react";
+import { faker } from '@faker-js/faker';
+import { supabase } from "../supabaseClient";
 
 const Home: NextPage = () => {
+  useEffect(() => {
+    // createDummyPassengers();
+    // createCustomPassenger();
+    fetchPassengers();
+  }, [])
+
+  // only supposed to be used once to create dummy passengers
+  const createDummyPassengers = async () => {
+    // TODO: clear table and add specific number of first, business, and economy passengers
+    for (let i = 0; i < 100; i++) {
+      const { data: passengers, error } = await supabase
+        .from("passengers")
+        .insert([
+          {
+            name: faker.name.firstName() + " " + faker.name.lastName(),
+            ticketNum: faker.random.numeric(12, { allowLeadingZeros: true }),
+            seatType: faker.helpers.arrayElement([
+              "window",
+              "aisle",
+              "middle",
+            ]),
+            seatClass: faker.helpers.arrayElement([
+              "economy",
+              "business",
+              "first",
+            ]),
+            neighbors: null,
+            exactSeat: null,
+            veteran: faker.helpers.arrayElement([0, 1]),
+            disabled: faker.helpers.arrayElement([0, 1]),
+            elderly: faker.helpers.arrayElement([0, 1]),
+          },])
+
+      if (error) console.log("error", error);
+    }
+  }
+
+  const createCustomPassenger = async () => {
+    const { data: passengers, error } = await supabase
+      .from("passengers")
+      .insert([
+        {
+          name: "Adam Teo",
+          ticketNum: "001234567890",
+          seatType: null,
+          seatClass: null,
+          neighbors: null,
+          exactSeat: null,
+          veteran: null,
+          disabled: null,
+          elderly: null,
+        },])
+  }
+
+
+  const fetchPassengers = async () => {
+    const { data, error } = await supabase
+      .from("passengers")
+      .select("*");
+    console.log(data);
+  }
+
   return (
     <>
       <div id="background-wrap" className="bg-gradient-to-b from-sky-300 to-sky-400">

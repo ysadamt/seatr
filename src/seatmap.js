@@ -1,7 +1,7 @@
 import {Graphics, Text} from 'pixi.js';
-import {Passenger} from './passenger.js';
-import Preferences from './preference.js';
-import {lerp, lerpColor, rgbToHex} from './utils.js';
+import {Passenger} from './passenger';
+import Preferences from './preference';
+import {lerp, lerpColor, rgbToHex} from './utils';
 
 /**
  * Represents a seat map.
@@ -334,6 +334,7 @@ export function testSeatingChart(deterministicPassenger) {
 			rand < 0.7 ? 'middle':
 			'aisle';
 
+		// TODO: fetch dummy data from a database
 		passengers.push(new Passenger('0'.repeat(12), 'John Doe', new Preferences(seatType, seatClass)));
 	}
 	

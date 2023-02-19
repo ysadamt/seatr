@@ -1,5 +1,5 @@
 import {SeatMap} from './seatmap.js';
-import { FLAG_WEIGHTS } from './passenger.js';
+import { FLAG_WEIGHTS } from './passenger';
 
 /**
  * Generate a generic boarding queue for passengers that minimizes the amount of time passengers have to wait. The passenger to board first is the first passenger in the array.

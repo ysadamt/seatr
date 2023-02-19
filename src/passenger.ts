@@ -1,4 +1,4 @@
-import Preferences from './preference.js';
+import Preferences from "./preference";
 
 /**
  * The weights for each possible passenger flag. The higher the wegiht, the more important the flag is.
@@ -20,7 +20,12 @@ export class Passenger {
 	 * @param {Preferences} preferences The passenger's preferences.
 	 * @param {Array<string>} flags The flags that the passenger has.
 	 */
-	constructor(ticket, name, preferences, flags = []) {
+
+  ticket: string;
+  name: string;
+  preferences: Preferences;
+  flags: Set<string>;
+	constructor(ticket: string, name: string, preferences: Preferences, flags : string[] = []) {
 		/**
 		 * The passenger's ticket number.
 		 */

@@ -1,12 +1,23 @@
+import { NextPage } from "next";
 import { Application, Graphics } from "pixi.js";
 import React, { useEffect, useState } from "react";
 import { FaArrowDown } from "react-icons/fa";
 import { SeatMap } from "../seatmap.js";
-import { toSeatStr } from '../utils.js';
+import { toSeatStr } from "../utils";
 
-const seatSelect = () => {
+const SeatSelect: NextPage = () => {
+  const [ticketNum, setTicketNum] = useState("");
+
   useEffect(() => {
     (async () => {
+      const params = new URLSearchParams(document.location.search);
+      const ticketNum = params.get("ticketNum");
+      if (!ticketNum) {
+        window.location.href = "/";
+        return;
+      }
+      setTicketNum(ticketNum);
+      
       const canvas = document.getElementById("canvas") as HTMLCanvasElement;
       const mouse = { x: 0, y: 0 };
       const pointer = { x: 0, y: 0 };
@@ -63,7 +74,7 @@ const seatSelect = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    window.location.href = `/result?exact=${seat}`;
+    window.location.href = `/result?ticketNum=${ticketNum}&exact=${seat}`;
   };
 
   return (
@@ -90,4 +101,4 @@ const seatSelect = () => {
   )
 }
 
-export default seatSelect
+export default SeatSelect;

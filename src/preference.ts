@@ -8,7 +8,12 @@ export default class Preferences {
 	 * @param {Array<string>} neighbors The ticket numbers of other passengers this passenger would like to sit next to.
 	 * @param {{row: number, column: number}?} exact The exact seat the passenger would like to sit in.
 	 */
-	constructor(seatType, seatClass, neighbors = [], exact = null) {
+
+  seatType: string | undefined;
+  seatClass: string | undefined;
+  neighbors: string[];
+  exactSeat: {row: number, column: number} | null;
+	constructor(seatType: string | undefined, seatClass: string | undefined, neighbors: string[] = [], exact: { row: number; column: number; } | null = null) {
 		/**
 		 * The type of seat the passenger prefers. Can be: 'window', 'middle', 'aisle', or 'any'.
 		 */

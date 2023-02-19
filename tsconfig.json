@@ -15,7 +15,7 @@
     "jsx": "preserve",
     "incremental": true,
     "noUncheckedIndexedAccess": true,
-    "strictNullChecks": false,
+    "strictNullChecks": true,
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.cjs", "**/*.mjs", "server/index.js"],
   "exclude": ["node_modules"]

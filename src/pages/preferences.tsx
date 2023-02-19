@@ -1,13 +1,18 @@
 import { type NextPage } from "next";
+import { useState } from "react";
 
 const Preferences: NextPage = () => {
+  const [ticketNum, setTicketNum] = useState<string | null>("");
 
-  const confirmChoice = (e: any) => {
+  const confirmChoice = (e: React.SyntheticEvent) => {
     e.preventDefault();
+    const params = new URLSearchParams(document.location.search);
+      const ticketNum = params.get('ticketNum');
+      setTicketNum(ticketNum);
     const form = document.getElementById("form-pref") as HTMLFormElement;
     const [veteran, disabled, elderly, aisle, middle, window2] = form.elements;
-    window.location.href = `/result?flags=${+(veteran as HTMLInputElement).checked},${+(disabled as HTMLInputElement).checked},${+(elderly as HTMLInputElement).checked}&seat=${+(aisle as HTMLInputElement).checked},${+(middle as HTMLInputElement).checked},${+(window2 as HTMLInputElement).checked}`;
-  };
+    window.location.href = `/result?ticketNum=${ticketNum}&flags=${+(veteran as HTMLInputElement).checked},${+(disabled as HTMLInputElement).checked},${+(elderly as HTMLInputElement).checked}&seat=${+(aisle as HTMLInputElement).checked},${+(middle as HTMLInputElement).checked},${+(window2 as HTMLInputElement).checked}`
+};
 
   return (
     <div className="flex flex-col justify-start items-start p-8 pt-20 md:justify-center md:items-center bg-gradient-to-b from-sky-300 to-sky-400 min-h-screen">
