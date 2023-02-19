@@ -2,7 +2,7 @@ import { Application, Graphics } from "pixi.js";
 import React, { useEffect, useState } from "react";
 import { FaArrowDown } from "react-icons/fa";
 import { SeatMap } from "../seatmap.js";
-import { toSeatStr } from "../utils.js";
+import { toSeatStr } from "../utils";
 
 const seatSelect = () => {
   const [ticketNum, setTicketNum] = useState("");
@@ -11,6 +11,10 @@ const seatSelect = () => {
     (async () => {
       const params = new URLSearchParams(document.location.search);
       const ticketNum = params.get("ticketNum");
+      if (!ticketNum) {
+        window.location.href = "/";
+        return;
+      }
       setTicketNum(ticketNum);
       
       const canvas = document.getElementById("canvas") as HTMLCanvasElement;

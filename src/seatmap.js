@@ -1,7 +1,7 @@
 import {Graphics, Text} from 'pixi.js';
-import {Passenger} from './passenger.js';
-import Preferences from './preference.js';
-import {lerp, lerpColor, rgbToHex} from './utils.js';
+import {Passenger} from './passenger';
+import Preferences from './preference';
+import {lerp, lerpColor, rgbToHex} from './utils';
 
 /**
  * Represents a seat map.

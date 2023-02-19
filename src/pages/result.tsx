@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react"
 import { IoAirplane } from "react-icons/io5";
 import { SeatMap, testSeatingChart } from "../seatmap.js";
-import { Passenger } from "../passenger.js";
-import Preferences from "../preference.js";
-import { toSeatStr } from "../utils.js";
+import { Passenger } from "../passenger";
+import Preferences from "../preference";
+import { toSeatStr } from "../utils";
 import { findPassengerInQueue, generateBoardingQueue } from "../queue.js";
 import { supabase } from "../supabaseClient.js";
 
@@ -16,10 +16,10 @@ const result = () => {
     destination: { code: "", city: "" }
   });
 
-  const [name, setName] = useState("");  
+  const [name, setName] = useState<string | null>("");  
 
-  const [group, setGroup] = React.useState("");
-  const [seat, setSeat] = React.useState("");
+  const [group, setGroup] = useState<string | null>("");
+  const [seat, setSeat] = useState("");
   useEffect(() => {
     (async () => {
       const params = new URLSearchParams(document.location.search);
@@ -38,7 +38,8 @@ const result = () => {
       if (error) {
         console.log(error);
       }
-      setName(passenger[0].name);
+      if (passenger && passenger[0])
+        setName(passenger[0].name);
       
       if (flags && seat) {
         const actualFlags = ["veteran", "disabled", "elderly"].filter((_, i) => !!flags[i]);
@@ -49,12 +50,12 @@ const result = () => {
         const queue = generateBoardingQueue(map);
         setGroup(findPassengerInQueue(queue, "bruh"));
         setSeat(toSeatStr(map.findSeat("bruh")));
-      } else {
+      } else if (exact && exact[0] && exact[1]) {
         const p = new Passenger("0", "bruh", new Preferences("", "economy", [], {
           row: parseInt(exact[0]) - 1,
           column: exact[1].charCodeAt(0) - "A".charCodeAt(0),
         }), []);
-
+      
         const map = testSeatingChart(p);
         const queue = generateBoardingQueue(map);
         setGroup(findPassengerInQueue(queue, "bruh"));

@@ -4,7 +4,7 @@
  * @param {number} n2
  * @param {number} t
  */
-export function lerp(n1, n2, t) {
+export function lerp(n1: number, n2: number, t: number) {
 	return t * (n2 - n1) + n1;
 }
 
@@ -14,7 +14,7 @@ export function lerp(n1, n2, t) {
  * @param {{r: number, g: number, b: number}} c2
  * @param {number} t
  */
-export function lerpColor(c1, c2, t) {
+export function lerpColor(c1: {r: number, g: number, b: number}, c2: {r: number, g: number, b: number}, t: number) {
 	return {
 		r: lerp(c1.r, c2.r, t),
 		g: lerp(c1.g, c2.g, t),
@@ -26,7 +26,7 @@ export function lerpColor(c1, c2, t) {
  * Convert an RGB object to its hex equivalent.
  * @param {{r: number, g: number, b: number}} color
  */
-export function rgbToHex(color) {
+export function rgbToHex(color: {r: number, g: number, b: number}) {
 	return color.r << 16 | color.g << 8 | color.b;
 }
 
@@ -34,7 +34,7 @@ export function rgbToHex(color) {
  * Convert a hex number to an RGB object.
  * @param {number} hex
  */
-export function hexToRGB(hex) {
+export function hexToRGB(hex: number) {
 	return {
 		r: hex >> 16 & 0xff,
 		g: hex >> 8 & 0xff,
@@ -46,6 +46,7 @@ export function hexToRGB(hex) {
  * Convert the given object to a seat string.
  * @param {{row: number, column: number}} seat
  */
-export function toSeatStr(seat) {
+export function toSeatStr(seat: {row: number, column: number} | null) {
+  if (!seat) return "unassigned";
 	return (seat.row + 1) + String.fromCharCode(seat.column + 65);
 }
