@@ -6,8 +6,9 @@ import Preferences from "../preference";
 import { toSeatStr } from "../utils";
 import { findPassengerInQueue, generateBoardingQueue } from "../queue.js";
 import { supabase } from "../supabaseClient.js";
+import { NextPage } from "next";
 
-const result = () => {
+const Result: NextPage = () => {
   const [data, setData] = useState({
     flightNumber: 0,
     arrivalTime: new Date(),
@@ -178,4 +179,4 @@ const result = () => {
   );
 }
 
-export default result
+export default Result;

@@ -1,10 +1,11 @@
+import { NextPage } from "next";
 import { Application, Graphics } from "pixi.js";
 import React, { useEffect, useState } from "react";
 import { FaArrowDown } from "react-icons/fa";
 import { SeatMap } from "../seatmap.js";
 import { toSeatStr } from "../utils";
 
-const seatSelect = () => {
+const SeatSelect: NextPage = () => {
   const [ticketNum, setTicketNum] = useState("");
 
   useEffect(() => {
@@ -100,4 +101,4 @@ const seatSelect = () => {
   )
 }
 
-export default seatSelect
+export default SeatSelect;

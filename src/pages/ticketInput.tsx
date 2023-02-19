@@ -3,8 +3,9 @@ import React, { useState, useRef, useEffect } from "react";
 import plane from '../../public/airplane-modified.png'
 import Image from 'next/image';
 import { supabase } from "../supabaseClient";
+import { NextPage } from "next";
 
-const ticketInput = () => {
+const TicketInput: NextPage = () => {
   const [ticketNum, setTicketNum] = useState("");
   const [valid, setValid] = useState(true);
 
@@ -82,4 +83,4 @@ const ticketInput = () => {
   )
 }
 
-export default ticketInput;
+export default TicketInput;
