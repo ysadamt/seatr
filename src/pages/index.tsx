@@ -118,14 +118,14 @@ const Home: NextPage = () => {
       </button>
 
       <div id="modal" className={`fixed top-0 left-0 w-full h-full flex justify-center items-center bg-black bg-opacity-50 ${showModal ? `fadeIn` : `fadeOut`}`} onClick={toggleModal}>
-        <div className="bg-white w-4/5 lg:w-1/4 h-4/5 lg:h-3/4 rounded-xl p-8 flex flex-col gap-8" onClick={(e) => e.stopPropagation()}>
+        <div className="bg-white w-4/5 lg:w-1/4 h-4/5 lg:h-3/4 rounded-xl p-8 flex flex-col gap-6" onClick={(e) => e.stopPropagation()}>
           <div className="flex flex-row justify-between items-center">
             <h1 className="text-3xl font-semibold">About</h1>
               <button className="transition-colors duration-300 hover:bg-zinc-100 rounded-full p-1" onClick={toggleModal}>
                 <MdClose size={32} />
               </button>
           </div>
-          <div className="flex flex-col h-full justify-between items-start">
+          <div className="flex flex-col h-full justify-between items-start overflow-auto">
             <div className="flex flex-col">
               <p className="text-sm">
                 Seatr is a web application that reduces boarding time exponentially. Through our algorithm to sort user seat preference and create a queue for boarding, passengers can wait a lot less in line.
