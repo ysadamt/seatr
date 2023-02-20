@@ -36,3 +36,15 @@
   animation-name: fadeInUp;
   -webkit-animation-name: fadeInUp;
 }
+
+.fadeIn {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.2s linear;
+}
+
+.fadeOut {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 0.2s, opacity 0.2s linear;
+}
