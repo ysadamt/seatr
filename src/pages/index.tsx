@@ -103,7 +103,7 @@ const Home: NextPage = () => {
           <div className="text-[#195770]">
             <MdEventSeat size={64} />
           </div>
-          <h1 className="text-6xl font-semibold justify-center items-center text-[#195770]">seatr</h1>
+          <h1 className="text-6xl font-semibold justify-center items-center text-[#195770] cursor-default">seatr</h1>
         </div>
         <Link href="/ticketInput">
           <button className="w-32 bg-[#195770] p-2 rounded-xl shadow-lg font-semibold animated animatedFadeInUp fadeInUp">
@@ -141,7 +141,7 @@ const Home: NextPage = () => {
             </div>
             <br />
             <p className="text-sm">
-              <a className="text-[#195770] underline" target="_blank" rel="noreferrer" href="https://github.com/ysadamt/seatr">Github</a> | <a className="text-[#195770] underline" target="_blank" rel="noreferrer" href="https://devpost.com/software/seatr-solution-to-air-boarding">Devpost</a>
+              <a className="text-[#195770] underline" target="_blank" rel="noreferrer" href="https://github.com/ysadamt/seatr">GitHub</a> | <a className="text-[#195770] underline" target="_blank" rel="noreferrer" href="https://devpost.com/software/seatr-solution-to-air-boarding">Devpost</a>
               <br />
               <br />
               Made with ❤️ for TAMUHack 2023.
