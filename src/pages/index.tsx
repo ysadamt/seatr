@@ -136,7 +136,7 @@ const Home: NextPage = () => {
               </p>
               <br />
               <p className="text-sm">
-                Project created by <a className="text-[#195770] underline" target="_blank" rel="noreferrer" href="https://github.com/ysadamt">Adam Teo</a>, <a className="text-[#195770] underline" target="_blank" rel="noreferrer" href="https://github.com/ElectrifyPro">Tam Pham</a>, and <a className="text-[#195770] underline" target="_blank" rel="noreferrer" href="https://github.com/victoriaemily">Victoria Chen</a>.
+                Created by <a className="text-[#195770] underline" target="_blank" rel="noreferrer" href="https://github.com/ysadamt">Adam Teo</a>, <a className="text-[#195770] underline" target="_blank" rel="noreferrer" href="https://github.com/ElectrifyPro">Tam Pham</a>, and <a className="text-[#195770] underline" target="_blank" rel="noreferrer" href="https://github.com/victoriaemily">Victoria Chen</a>.
               </p>
             </div>
             <br />
