@@ -42,7 +42,7 @@ const Preferences: NextPage = () => {
           <label htmlFor="window"> Window</label><br />
         </div>
         {/*<button className="w-43 p-3 rounded-xl bg-[#195770] text-white font-semibold hover:bg-[#154153] animated animatedFadeInUp fadeInUp">*/}
-        <button className="w-43 p-3 rounded-xl bg-[#195770] text-white font-semibold hover:bg-[#154153] animated animatedFadeInUp fadeInUp mt-8">
+        <button className="w-43 p-3 rounded-xl bg-[#195770] text-white font-semibold hover:bg-[#154153] animated animatedFadeInUp fadeInUp mt-8 align-center">
           <p>Confirm</p>
         </button>
       </div>
